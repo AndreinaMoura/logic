@@ -6,86 +6,92 @@ public class Prova {
 		public static void main(String[] args) {
 			Scanner entrada=new Scanner(System.in);
 			int opcao=0;
-			double salario,porcentagem = 0,desconto,INSS=0,FGTS = 0,IRRF=0;
 			
-			System.out.print("Digite o seu nome: ");
-			String nome=entrada.nextLine();
-			System.out.print("Digite o seu salário: ");
-			salario = entrada.nextDouble();
-			while(opcao != 4) {
-			
-			System.out.print("1-INSS\t3-FGTS\n");
-			System.out.print("2-IRRF\t4-Sair\n");
-			System.out.print("Escolha: ");
+			while(opcao != 5) {
+			System.out.print("1-Horas Extras\t3-Matérias Primas\n");
+			System.out.print("2-Apuração\t4-Blocos\n");
+			System.out.print("5-Sair\nEscolha: ");
 			
 			opcao=entrada.nextInt();
 			switch(opcao) {
 				case 1:
-					//INSS
-					if(salario > 7087.22) {
-						porcentagem = 0;
-					}else if(salario > 3641.03) {
-						porcentagem = 0.14;
-					}else if(salario > 2427.35){
-						porcentagem = 0.12;
-					}else if(salario > 1212.01){
-						porcentagem = 0.09;
-					} else {
-						porcentagem = (7.5/100);		
-					} 
-					if(porcentagem == 0) {
-						desconto = 992.21;
-					}else {
-						desconto = salario * porcentagem;	
-					}
-					desconto=salario*porcentagem;
-					INSS=salario-desconto;
+					//horas extras
+					System.out.println("Digite o total de horas trabalhadas: ");
+					double horat= entrada.nextDouble();
+					System.out.println("Digite o total de horas extras trabalhadas: ");
+					double horaExtra= entrada.nextDouble();
+					double valor = 5.625;
+					double extra = 4.21875;
+					double valorExtra= valor+extra;
+					double salario=(horat*valor)+(horaExtra*extra);
 					
-					System.out.println("Nome: " + nome);
-					System.out.println("Porcentagem: " + porcentagem);
-					System.out.println("Salário: " + salario);
-					System.out.println("INSS: " +INSS);
-					System.out.println(" ");
+					System.out.println("O salário total é de "+salario);
+					
 					break;
 				case 2:
-					//IRRF
-					if(salario > 1903.99){
-						porcentagem = 7.5;
-					}else if(salario > 2826.66){
-						porcentagem = 15;
-					}else if(salario > 3751.06) {
-						porcentagem = 27.50;
-					}else if(salario < 4664.68) {
-						porcentagem = 0.0;
-			
-					} else {
-						System.out.println("É isento");		
+					//apuração
+					int t=5;
+					System.out.println("Digite os nomes das escolas");
+					System.out.println("Digite uma nota de 0 a 10 para cada categoria");
+					String[] nomes = new String[t];
+					int n1;
+					int n2;
+					int n3;
+					int[] apuracao = new int[t];
+					for(int i = 0; i < t; i++) {
+						System.out.print("Nome da "+(i+1)+"° escola: ");
+						nomes[i] = entrada.next();
+						System.out.print("Nota da bateria ["+(i+1)+"]: ");
+						n1 = entrada.nextInt();
+						System.out.print("Nota samba-enredo ["+(i+1)+"]: ");
+						n2 = entrada.nextInt();
+						System.out.print("Nota fantasia ["+(i+1)+"]: ");
+						n3 = entrada.nextInt();
+						apuracao[i] =(n1 + n2 + n3)/3;
 					}
-					
-					desconto = salario * porcentagem / 100;
-					System.out.println("Nome: " + nome);
-					System.out.println("Porcentagem: " + porcentagem);
-					System.out.println("Salário: " + salario);
-					System.out.println("IRRF: " + IRRF);
-					System.out.println(" ");
+					for(int i = 0; i < t; i++) {
+						System.out.println(+(i+1)+"° escola "+nomes[i]+" - apuração: "+apuracao[i]);
+						}
 					break;
 				case 3:
-					//FGTS
-					FGTS=salario*0.08;
-					salario=salario+FGTS;
-					System.out.println("Nome: " + nome);
-					System.out.println("Porcentagem: " + porcentagem);
-					System.out.println("Salário: " + salario);
-					System.out.println("FGTS: " + FGTS);
-					System.out.println(" ");
+					//Materias prima
+					String[] mp= {"Lantejoulas", "Penas de Avestruz do Himalaia","Tecido de seda Húngara"};
+					int[] valor1= new int[3]; 
+					for(int i = 0; i < 3; i++) {
+						System.out.print("Digite a quantidade utilizada em quilos de "+mp[i]+": ");
+						int peso=entrada.nextInt();
+						System.out.print("Digite o valor de "+mp[i]+": ");
+						int preco=entrada.nextInt();
+						
+						valor1[i]=peso*preco;
+					}
+					
+					for(int i = 0; i < 3; i++) {
+						System.out.println(mp[i]+" custa R$"+valor1[i]);
+					}
 					break;
 				case 4:
-					System.out.println("Nome: " + nome);
-					System.out.println("Salário bruto: " + salario);
-					System.out.println("Salário com desconto do INSS: "+(salario-INSS));
-					System.out.println("Salário com desconto do IRRF: " + (salario-IRRF));
-					System.out.println("Salário com FGTS: " + FGTS);
-					System.out.println("Salário liquido: " + (salario+FGTS-INSS-IRRF));
+					//Blocos
+					System.out.print("Digite o total de pessoas no bloco: ");
+					int pessoas=entrada.nextInt();
+					System.out.println("Pessoas na comissão da frente: "+(pessoas*0.15));
+					System.out.println("Pessoas na abre-alas: "+(pessoas*0.05));
+					System.out.println("Pessoas na ala das baianas: "+(pessoas*0.15));
+					System.out.println("Pessoas na carros alegóricos: "+(pessoas*0.20));
+					System.out.println("Pessoas na mestre-sala: "+(pessoas*0.03));
+					System.out.println("Pessoas na porta-bandeira: "+(pessoas*0.03));
+					System.out.println("Pessoas na bateria: "+(pessoas*0.20));
+					System.out.println("Pessoas na madrinha de bateria: "+(pessoas*0.02));
+					System.out.println("Pessoas na recuo da bateria: "+(pessoas*0.20));
+					break;
+				case 5:
+					//Sair
+					System.out.println("Adeus");
+					break;
+				default:
+					System.out.println("Opção Inválida");
+					break;
+					
 				}
 			}
 		}
