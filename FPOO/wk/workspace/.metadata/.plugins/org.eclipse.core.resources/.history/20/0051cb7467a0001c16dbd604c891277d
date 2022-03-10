@@ -1,0 +1,22 @@
+package sla;
+//6 - Utilizando vetores, crie um programa que organize uma quantidade qualquer de números inteiros fornecidos pelo usuário da seguinte forma: primeiro os números 
+//pares em ordem crescente e depois os números ímpares em ordem decrescente.
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class Ex6 {
+	static Scanner scan = new Scanner(System.in);
+	static Random r = new Random();
+	public static void main(String[] args) {
+		System.out.print("Digite a quantidade de números que deseja organizar: ");
+		int qtd = scan.nextInt();
+		int[] v = new int[qtd];
+		int n = r.nextInt(10);
+		
+		
+		
+
+	}
+
+}

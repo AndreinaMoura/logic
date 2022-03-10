@@ -1,0 +1,50 @@
+package sla;
+//6 - Utilizando vetores, crie um programa que organize uma quantidade qualquer de números inteiros fornecidos pelo usuário da seguinte forma: primeiro os números 
+//pares em ordem crescente e depois os números ímpares em ordem decrescente.
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class Ex6 {
+	static Scanner scan = new Scanner(System.in);
+	static Random r = new Random();
+	public static void main(String[] args) {
+		System.out.print("Digite a quantidade de números que deseja organizar: ");
+		int qtd = scan.nextInt();
+		int x=0;
+		int y=0;
+		int[] v1 = new int[qtd];
+		int[] v2 = new int[x];
+		int[] v3 = new int[y];
+		int[] n = new int[v1.length];
+		System.out.println("1º Vetor");
+		for(int i=0;i<v1.length;i++) {
+			n[i] = r.nextInt(10);
+		}
+		for(int i=0;i<v1.length;i++) {
+			System.out.print(n[i]+"\t");
+		}
+		System.out.println("\n2º Vetor");
+		for(int i=0;i<v1.length;i++) {
+			int z=v1[i];
+			if(z%2 == 0) {
+				v2[i]=z;
+				System.out.print(v2[i]+"\t");
+			}else {
+				v3[i]=z;
+				System.out.print(v3[i]+"\t");
+			}
+		}
+//		System.out.println("2º Vetor");
+//		for(int i=0;i<x;i++) {
+//			
+//		}
+//		System.out.println("3º Vetor");
+//		for(int i=0;i<y;i++) {
+//			
+//		}
+		
+
+	}
+
+}

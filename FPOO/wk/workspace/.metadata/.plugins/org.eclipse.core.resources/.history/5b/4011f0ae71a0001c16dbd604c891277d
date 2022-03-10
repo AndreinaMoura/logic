@@ -1,0 +1,13 @@
+package sla;
+
+import java.util.Scanner;
+
+//7 - Dados dois vetores de tamanho N, faça uma função que diga se os mesmos possuam conteúdo igual. 
+public class Ex7 {
+	static Scanner scan = new Scanner(System.in);
+	public static void main(String[] args) {
+		
+
+	}
+
+}
