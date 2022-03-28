@@ -3,10 +3,8 @@ package sla;
 //dois vetores lidos, um quarto vetor formado pela soma dos dois vetores lidos e por último um quinto vetor formado pela multiplicação dos dois vetores lidos.
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class Ex5 {
-	static Scanner scan = new Scanner(System.in);
 	static Random r = new Random();
 	public static void main(String[] args) {
 	int v1[]=new int[20];
