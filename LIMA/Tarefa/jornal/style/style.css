@@ -1,0 +1,112 @@
+*{
+    background-color: rgb(221, 221, 221);
+}
+body{
+    display:flex;
+    flex-direction:column;
+    height: 100%;
+    width:100%;
+}
+header{
+    display: flex;
+    flex-direction: row;
+    height: 10%;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+main{
+    margin:auto;
+    height: 100%;
+    width: 100%;    
+}
+.menu{
+    height: 45%;
+    float:right;
+    background-color:white;
+    padding: 1%;
+    width: 10%;
+}
+.menuL{
+    background-color:white;
+}
+.img{
+    height: 200px;
+    height: 150px;
+    display: flex;
+    flex-direction:row;
+}
+.img2{
+    height: 10px;
+}
+.img3{
+    height: 100px;
+    display: flex;
+    flex-direction:row;
+}
+
+.a{
+    color:red;
+
+}
+.b{
+    color:green;
+}
+.c{
+    color:blue;
+}
+.text{
+    text-align: left;
+    float:right;
+}
+.principal{
+    /* display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, 1fr); */
+    width: 50%;
+    flex-flow: row wrap;
+    margin-left: 4%;
+    margin-top:2%;
+}
+.na{
+    width: 70%;
+}
+.linha{
+    display: flex;
+    flex-direction:row;
+    width: 50%;
+    justify-content: space-evenly;
+}
+
+#divBusca{
+    background-color:#DDDDDD;
+    border:solid 1px;
+    border-radius:15px;
+    width:260px;
+}
+  
+#txtBusca{
+    float:left;
+    height:20px;
+    width:230px;
+    border:none;
+    background-color:#DDDDDD;
+    color:black;
+    border-radius:15px;
+}
+@media(max-width:900px){
+    body{
+        display:flex;
+        flex-direction:column;
+    }
+    header{
+        height: 100px;
+    }
+    main{
+        height: 100px;
+    }
+    footer{
+        height: 100px;
+    }
+}
