@@ -11,7 +11,7 @@ public class Menu {
 	private static Aparelho[] aparelhos = new Aparelho[10];
 	private static int indice = 0;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ParseException {
 
 		int menu = 0;
 		while (menu != 3) {
