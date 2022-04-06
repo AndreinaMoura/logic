@@ -1,0 +1,59 @@
+.list{
+    font-size: 30px;
+}
+.pag{
+    font-size: 18px;
+}
+.proxp{
+    float: right;
+}   
+
+.b1{
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    background-color:red;
+    margin:1%;
+}
+.b2{
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    background-color:green;
+    margin:1%;
+}
+.b3{
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    background-color:blue;
+    margin:1%;
+}
+.b4{
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    background-color:red;
+    margin:1%;
+}
+.b5{
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    background-color:green;
+    margin:1%;
+}
+.b6{
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    background-color:blue;
+    margin:1%;
+}
+.c{
+    margin-bottom:1%;
+}
+.l{
+    margin-top:1%;
+    display: flex;
+}

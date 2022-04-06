@@ -22,7 +22,7 @@ public class Principal {
 		int menu = 0;
 		while (menu != 7) {
 			System.out.print(
-					"*Cadastrar Cliente    *Cadastrar Funcionário    *Cadastrar Vendas    *Listar Clientes    *Listar Funcionários    *Listar Clientes     *Sair\n-Escolha: ");
+					"1.Cadastrar Cliente    2.Cadastrar Funcionário    3.Cadastrar Vendas    4.Listar Clientes    5.Listar Funcionários    6.Listar Clientes     7.Sair\n-Escolha: ");
 			menu = scan.nextInt();
 			switch (menu) {
 			case 1:
@@ -44,7 +44,7 @@ public class Principal {
 				listarVendas();
 				break;
 			case 7:
-				System.out.println("Adeus");
+				System.out.println("Até mais volte sempre");
 				break;
 			default:
 				System.out.println("Opção Inválida");
@@ -68,8 +68,12 @@ public class Principal {
 		funcionarios.add(fn);
 	}
 
-	private static void cadastrarVendas() {
-
+	private static void cadastrarVendas() throws ParseException {
+		System.out.println("\n-------------------------------Cadastrar Venda-------------------------------\n");
+		System.out.println("Código do Cliente    Código do Vendedor    Valor da Venda    Comissão    Data");
+		Venda vn = new Venda(scan.nextInt(), scan.nextInt(), scan.nextDouble(), scan.nextDouble(),
+				df.parse(scan.next()));
+		vendas.add(vn);
 	}
 
 	private static void listarClientes() {
@@ -87,6 +91,9 @@ public class Principal {
 	}
 
 	private static void listarVendas() {
-
+		System.out.println("\nCódigo do Cliente    Código do Vendedor    Valor da Venda    Comissão    Data");
+		for (Venda vn : vendas) {
+			System.out.println(vn.toString());
+		}
 	}
 }

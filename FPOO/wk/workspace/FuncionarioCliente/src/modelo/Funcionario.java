@@ -3,10 +3,10 @@ package modelo;
 import java.util.Date;
 
 public class Funcionario extends Pessoa {
-	private int matricula;
-	private double comissao;
+	public int matricula;
+	public double comissao;
 
-	public Funcionario(String nome, String telefone, Date nascimento,int matricula, double comissao) {
+	public Funcionario(String nome, String telefone, Date nascimento, int matricula, double comissao) {
 		super(nome, telefone, nascimento);
 		this.matricula = matricula;
 		this.comissao = comissao;
@@ -30,8 +30,8 @@ public class Funcionario extends Pessoa {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Funcionario: matricula=" + matricula + ", comissao=" + comissao + ", getMatricula()=" + getMatricula()
-				+ ", getComissao()=" + getComissao();
+		return super.toString() + "Funcionario: matricula=" + matricula + ", comissao=" + comissao + ", getMatricula()="
+				+ getMatricula() + ", getComissao()=" + getComissao();
 	}
 
 }

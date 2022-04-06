@@ -1,0 +1,23 @@
+.list{
+    font-size: 30px;
+}
+.pag{
+    font-size: 18px;
+}
+.proxp{
+    float: right;
+}     
+
+.itens1{
+    flex-direction: column;
+}
+.itens2{
+    display: flex;
+}
+.itens3{
+    display: flex;
+    list-style-type: none;
+}
+.l{
+    padding-right:30px;
+}

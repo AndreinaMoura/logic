@@ -6,13 +6,11 @@ public class Cliente extends Pessoa {
 	private int id;
 	private double creditoLimite;
 
-
 	public Cliente(String nome, String telefone, Date nascimento, int id, double creditoLimite) {
 		super(nome, telefone, nascimento);
 		this.id = id;
 		this.creditoLimite = creditoLimite;
 	}
-
 
 	public int getId() {
 		return id;
