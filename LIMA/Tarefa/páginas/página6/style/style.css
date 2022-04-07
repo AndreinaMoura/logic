@@ -7,65 +7,68 @@
 .proxp{
     float: right;
 }   
+header{
+    margin-bottom: 60px;
+}
 .b1{
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     border-radius: 100%;
     background-color:red;
     margin:1%;
 }
 .b2{
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     border-radius: 100%;
     background-color:green;
     margin:1%;
 }
 .b3{
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     border-radius: 100%;
     background-color:blue;
     margin:1%;
 }
 .b4{
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     border-radius: 100%;
     background-color:red;
     margin:1%;
 }
 .b5{
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     border-radius: 100%;
     background-color:green;
     margin:1%;
 }
 .b6{
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     border-radius: 100%;
     background-color:blue;
     margin:1%;
 }
 .b7{
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     border-radius: 100%;
     background-color:red;
     margin:1%;
 }
 .b8{
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     border-radius: 100%;
     background-color:green;
     margin:1%;
 }
 .b9{
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     border-radius: 100%;
     background-color:blue;
     margin:1%;

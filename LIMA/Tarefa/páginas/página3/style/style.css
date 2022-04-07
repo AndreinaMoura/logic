@@ -1,6 +1,9 @@
 *{
     margin: 0;
 }
+header{
+    margin-bottom: 60px;
+}
 .list{
     margin: 1%;
     font-size: 30px;
