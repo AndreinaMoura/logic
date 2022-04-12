@@ -9,13 +9,11 @@ ul{
 }
 body{
     display: grid;
-    grid-template-rows: 5vh 10vh 35vh 65vh;
-    grid-template-columns: repeat(5,20vw);
-    grid-template-areas:    "a h h h h"
-                            "a b1 b2 b3 b4" 
-                            "a x x x x"
-                            "a x x x x"
-                            "a t1 t2 t2 t3";
+    grid-template-rows: 10vh 45vh 45vh;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:    "a h h"
+                            "a m m" 
+                            "a m m";
     background-color: rgb(238, 238, 238);                         
 }
 header{
@@ -35,8 +33,14 @@ aside ul{
 }
 main{
     height: 100%;
-    display: flex;
-}
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: repeat(4,25vw);
+    grid-template-areas:    "b1 b2 b3 b4"
+                            "t1 t2 t2 t3" 
+                            "t1 t2 t2 t3";
+    background-color: rgb(238, 238, 238);
+}     
 .bl{
     flex-direction: row;
 
