@@ -25,7 +25,7 @@ main{
     grid-template-rows: 5vh 40vh 55vh;
     grid-template-columns: repeat(4,25vw);
     grid-template-areas:    "b1 b2 b3 b4"
-                            "t1 t2 t2 t3" 
+                            "b5 b6 b7 b8" 
                             "t1 t2 t2 t3";
     background-color: rgb(238, 238, 238);
 }     
@@ -41,21 +41,6 @@ main{
 nav{
     display:flex;
     justify-content: space-between;
-}
-.t1{
-    grid-area: t1;
-    width: 20vw;
-    height: max-content;
-}
-.t2{
-    grid-area: t2;
-    width: 40vw;
-    height: max-content;
-}
-.t3{
-    grid-area: t3;
-    width: 20vw;
-    height: max-content;
 }
 .b1{
     border-radius: 15px;
@@ -79,7 +64,6 @@ nav{
     border-radius: 15px;
     background-color: rgb(219, 73, 62);
     grid-area: b4;
-    width: 30vw;
     height: 100%;
 }
 .b5{
@@ -104,6 +88,5 @@ nav{
     border-radius: 15px;
     background-color: rgb(219, 73, 62);
     grid-area: b4;
-    width: 30vw;
     height: 100%;
 }
