@@ -12,7 +12,7 @@ public class Login {
 	public void cadastrar(String info, String fileName, boolean append) {
 
 		try {
-			FileWriter fw = new FileWriter(fileName + ".txt", append);
+			FileWriter fw = new FileWriter(fileName+ ".txt", append);
 			BufferedWriter bw = new BufferedWriter(fw);
 
 			bw.write(info + "\r\n");

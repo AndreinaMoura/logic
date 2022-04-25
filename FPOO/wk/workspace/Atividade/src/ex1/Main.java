@@ -15,8 +15,8 @@ public class Main {
 		Scanner scan = new Scanner(System.in);
 		Arquivo arq = new Arquivo();
 		do {
-			System.out.println("1-Cadastrar");
-			System.out.println("2-Listar");
+			System.out.println("1-Cadastrar Pessoa");
+			System.out.println("2-Listar Cadastros");
 			System.out.println("0-Sair");
 			opcao = scan.nextInt();
 

@@ -13,8 +13,8 @@ public class Main {
 		Scanner scan = new Scanner(System.in);
 		Aluno arq = new Aluno();
 		do {
-			System.out.println("1-Cadastrar");
-			System.out.println("2-Listar");
+			System.out.println("1-Cadastrar Aluno");
+			System.out.println("2-Listar Alunos");
 			System.out.println("0-Sair");
 			opcao = scan.nextInt();
 

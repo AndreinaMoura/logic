@@ -5,8 +5,10 @@ import java.util.Scanner;
 
 public class Main {
 
+	
 	public static void main(String[] args) {
 		int opcao = 0;
+
 		Scanner scan = new Scanner(System.in);
 		Login log = new Login();
 		do {
@@ -29,7 +31,6 @@ public class Main {
 			case 2:
 				ArrayList<String> infoFile = log.ler("Login");
 
-
 				System.out.println("Insira o usuário: ");
 				String b1 = scan.next();
 				System.out.println("Insira a senha: ");
@@ -37,10 +38,11 @@ public class Main {
 
 				for (String linha : infoFile) {
 					String[] temp = linha.split("\t");
-					if ((temp[0].toLowerCase().contains(b1.toLowerCase()))||(temp[1].toLowerCase().contains(b2.toLowerCase()))) {
+					if ((temp[0].toLowerCase().contains(b1.toLowerCase()))
+							&& (temp[1].toLowerCase().contains(b2.toLowerCase()))) {
 						System.out.println("Acesso Permitido");
 						System.out.println("Bem-vindo " + temp[0]);
-					}	
+					}
 				}
 				break;
 			case 0:
