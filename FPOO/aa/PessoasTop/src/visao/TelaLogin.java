@@ -6,7 +6,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import controle.DAOPlanilha;
+import controle.ProcessaPlanilha;
+import controle.UsuarioProcessa;
+import modelo.Planilha;
+
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class TelaLogin extends JFrame implements ActionListener {
 
@@ -15,8 +23,8 @@ public class TelaLogin extends JFrame implements ActionListener {
 	// atributos da tela
 	private JPanel painel;
 	private JLabel rotulo1, rotulo2;
-	private JTextField email, senha;
-	private JButton login;
+	private JTextField nome, ano;
+	private JButton cadastro;
 
 	public TelaLogin() {
 
@@ -32,34 +40,40 @@ public class TelaLogin extends JFrame implements ActionListener {
 		rotulo1 = new JLabel("Nome:");
 		rotulo1.setBounds(20, 20, 100, 20);
 		
-		email = new JTextField();
-		email.setBounds(150, 20, 200, 30);
+		nome = new JTextField();
+		nome.setBounds(150, 20, 200, 30);
 		
 		rotulo2 = new JLabel("Ano de Nascimeto:");
 		rotulo2.setBounds(20, 60, 200, 20);
 		
-		senha = new JTextField();
-		senha.setBounds(150, 60, 200, 30);
+		ano = new JTextField();
+		ano.setBounds(150, 60, 200, 30);
 		
-		login = new JButton("Ok");
-		login.setBounds(150, 100, 200, 30);
-		login.addActionListener(this);
+		cadastro = new JButton("Ok");
+		cadastro.setBounds(150, 100, 200, 30);
+		cadastro.addActionListener(this);
 
 		painel.add(rotulo1);
-		painel.add(email);
+		painel.add(nome);
 		painel.add(rotulo2);
-		painel.add(senha);
-		painel.add(login);
+		painel.add(ano);
+		painel.add(cadastro);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == cadastro) {
+			String a = nome.getText();
+			ProcessaPlanilha.carregar();
+			String b = ano.getText();
+			ProcessaPlanilha.carregar();
+			ProcessaPlanilha.saida();
+			this.dispose();// Fecha o Formulário
+				
+		}
+	}
 	public static void main(String[] args) {
+		ProcessaPlanilha.carregar();
 		TelaLogin tela = new TelaLogin();
 		tela.setVisible(true);
-	}
-	
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == login) {
-			JOptionPane.showMessageDialog(this, "Oi, você clicou em Login");
-		}
 	}
 }

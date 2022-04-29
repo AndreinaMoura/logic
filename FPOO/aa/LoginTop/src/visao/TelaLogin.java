@@ -1,7 +1,7 @@
 package visao;
 
 import java.awt.event.ActionListener;
-import java.util.Scanner;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,11 +12,10 @@ import javax.swing.JTextField;
 
 import controle.UsuarioProcessa;
 
-import java.awt.event.ActionEvent;
+
 public class TelaLogin extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private static Scanner scan = new Scanner(System.in);
 
 	// atributos da tela
 	private JPanel painel;
@@ -37,21 +36,20 @@ public class TelaLogin extends JFrame implements ActionListener {
 		// Conteúdos da tela
 		rotulo1 = new JLabel("Email:");
 		rotulo1.setBounds(20, 20, 100, 20);
-		
+
 		email = new JTextField();
 		email.setBounds(120, 20, 200, 30);
-		
+
 		rotulo2 = new JLabel("Senha:");
 		rotulo2.setBounds(20, 60, 100, 20);
-		
+
 		senha = new JTextField();
 		senha.setBounds(120, 60, 200, 30);
-		
+
 		login = new JButton("Login");
 		login.setBounds(120, 100, 200, 30);
 		login.addActionListener(this);
-		
-		
+
 		painel.add(rotulo1);
 		painel.add(email);
 		painel.add(rotulo2);
@@ -59,27 +57,24 @@ public class TelaLogin extends JFrame implements ActionListener {
 		painel.add(login);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == login) {
+			int indice = UsuarioProcessa.checarEmail(email.getText());
+			if (indice != -1) {
+				if (UsuarioProcessa.checarSenha(indice, senha.getText())) {
+					JOptionPane.showMessageDialog(this, "Acesso permitido");
+					this.dispose();// Fecha o Formulário
+				} else {
+					JOptionPane.showMessageDialog(this, "Acesso negado");
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, "Usuário não encontrado");
+			}
+		}
+	}
 	public static void main(String[] args) {
 		UsuarioProcessa.carregar();
 		TelaLogin tela = new TelaLogin();
 		tela.setVisible(true);
-	}
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == login) {
-			JOptionPane.showMessageDialog(this, "Oi, você clicou em Login");
-			System.out.println("Digite o email: ");
-			int indice = UsuarioProcessa.checarEmail(scan.next());
-			if (indice != -1) {
-				System.out.println("Digite a senha: ");
-				String senha = scan.next();
-				if (UsuarioProcessa.checarSenha(indice, senha)) {
-					System.out.println("Acesso permitido");
-				} else {
-					System.out.println("Acesso negado");
-				}
-			} else {
-				System.out.println("Usuário não encontrado");
-			}
-		}
 	}
 }

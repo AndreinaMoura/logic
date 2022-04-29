@@ -7,7 +7,7 @@ import modelo.Planilha;
 public class ProcessaPlanilha {
 
 	public static ArrayList<Planilha> linhas = new ArrayList<>();
-	private static DAO dao = new DAO();
+	private static DAOPlanilha dao = new DAOPlanilha();
 
 	public static void carregar() {
 		linhas = dao.abrir();

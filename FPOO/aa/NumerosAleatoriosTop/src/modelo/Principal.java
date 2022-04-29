@@ -35,6 +35,7 @@ public class Principal {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		ArrayList<Integer> teste = new ArrayList<>();
 		longo.forEach(x -> {
 			teste.add(Integer.parseInt(x));

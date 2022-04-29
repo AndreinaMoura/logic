@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import modelo.Planilha;
 
-public class DAO {
+public class DAOPlanilha {
 	private BufferedReader br;
 	private BufferedWriter bw;
 	private String pessoas = "C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Pessoas\\dados\\pessoas.csv";
