@@ -1,6 +1,8 @@
 package visao;
 
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
@@ -16,11 +18,13 @@ import javax.swing.JTextField;
 
 import java.awt.Color;
 
-import controle.PetProcessa;
+import controle.PetProcess;
+import modelo.Pet;
 
 public class PetForm extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
+	private Scanner scan = new Scanner(System.in);
 
 	// atributos da tela
 	private JPanel painel;
@@ -29,9 +33,16 @@ public class PetForm extends JFrame implements ActionListener {
 	private JTextField id, raca, nomePet, peso, nascimento, nomeDono, telefone;
 	private JButton cadastrar, buscar, alterar, excluir;
 	private JTextArea area;
-	private String imgPath = "C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Pets\\dadinhos\\img.jpg";
-	private ImageIcon icon = new ImageIcon(new ImageIcon(imgPath).getImage().getScaledInstance(150, 115, 100));
+	private ImageIcon icon;
+//	private String imgIco = ;
+	private String[] imagens = {
+			"C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Pets\\dadinhos\\img.jpg",
+			"C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Pets\\dadinhos\\img.jpg",
+			"C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Pets\\dadinhos\\doguinho.png",
+			"C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Pets\\dadinhos\\coelho.png",
+			"C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Pets\\dadinhos\\passáro.jpg" };
 	private int autoId = 1;
+	private String texto = "";
 
 	public PetForm() {
 
@@ -50,15 +61,16 @@ public class PetForm extends JFrame implements ActionListener {
 
 		rotulo1.setBounds(40, 40, 100, 20);
 
-		id = new JTextField("" + autoId);
+		id = new JTextField(String.format("%d", autoId));
 		id.setEnabled(false);
 		id.setBounds(140, 40, 200, 30);
 
 		rotulo2 = new JLabel("Espécie:");
 		rotulo2.setBounds(40, 80, 100, 20);
 
-		especie = new JComboBox<String>(new String[] { " ", "gato", "cachorro", "coelho" });
+		especie = new JComboBox<String>(new String[] { " ", "Gato", "Cachorro", "Coelho", "Passáro" });
 		especie.setBounds(140, 80, 200, 30);
+		especie.addActionListener(this);
 
 		rotulo3 = new JLabel("Raça:");
 		rotulo3.setBounds(40, 120, 100, 20);
@@ -99,14 +111,16 @@ public class PetForm extends JFrame implements ActionListener {
 		area = new JTextArea();
 		area.setBounds(40, 400, 560, 150);
 		area.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
+		area.setEnabled(false);
+		preencherArea();
 
 		imagem = new JLabel();
 		imagem.setBounds(400, 200, 200, 150);
 		imagem.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
-		imagem.setIcon(new ImageIcon(imgPath));
+		mostrarImagem(0);
 
-		rotulo9 = new JLabel("Id, Espécie, Raça, Nome do Pet, Peso, Nascimento, Nome do Dono, Telefone");
-		rotulo9.setBounds(100, 300, 500, 150);
+		rotulo9 = new JLabel(String.format("Id:  Espécie:         Raça:      Nome do Pet:      Peso:   Idade:        Nome do Dono      Telefone:        "));
+		rotulo9.setBounds(40, 300, 500, 150);
 
 		cadastrar = new JButton("Cadastrar");
 		cadastrar.setBounds(400, 40, 200, 30);
@@ -144,8 +158,8 @@ public class PetForm extends JFrame implements ActionListener {
 		painel.add(rotulo7);
 		painel.add(rotulo8);
 		painel.add(rotulo9);
-		painel.add(imagem);
 
+		painel.add(imagem);
 		painel.add(area);
 		painel.add(cadastrar);
 		painel.add(buscar);
@@ -155,26 +169,63 @@ public class PetForm extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cadastrar) {
-			JOptionPane.showMessageDialog(this, "a");
+			JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
 			alterar.setEnabled(true);
 			excluir.setEnabled(true);
 		}
 		if (e.getSource() == buscar) {
-			JOptionPane.showMessageDialog(this, "b");
+			JOptionPane.showMessageDialog(this, "O que deseja buscar?");
+			String mensagem = "";
+
+			int indice = 0 ;
+			if (indice != -1) {
+//			= PetProcess.checarNome(nomePet.getText())
+//			JOptionPane.showInputDialog(this, mensagem);
+//			mensagem = scan.next();
+//			if(mensagem.toLowerCase().equals(nomePet.toLowerCase()));
+				JOptionPane.showMessageDialog(this, "Pet encontrado");
+				this.dispose();// Fecha o Formulário
+
+			} else {
+				JOptionPane.showMessageDialog(this, "Pet não encontrado");
+			}
 			alterar.setEnabled(true);
 			excluir.setEnabled(true);
 		}
 		if (e.getSource() == alterar) {
-			JOptionPane.showMessageDialog(this, "c");
+			JOptionPane.showMessageDialog(this, "Alterado com sucesso");
 		}
 		if (e.getSource() == excluir) {
-			JOptionPane.showMessageDialog(this, "d");
+			JOptionPane.showMessageDialog(this, "Excluído com sucesso");
+			excluir.setEnabled(false);
+			alterar.setEnabled(false);
+		}
+		if (e.getSource() == especie) {
+			mostrarImagem(especie.getSelectedIndex());
 		}
 	}
 
-	public static void main(String[] args) {
-		PetProcessa.carregar();
-		PetForm tela = new PetForm();
-		tela.setVisible(true);
+	private void mostrarImagem(int indice) {
+		icon = new ImageIcon(new ImageIcon(imagens[indice]).getImage().getScaledInstance(200, 150, 200));
+		imagem.setIcon(icon);
+	}
+
+	private void cadastrar() {
+		if(nomePet.getText().length() != 0 && raca.getText().length() != 0 && peso.getText().length() != 0 && nascimento.getText().length() != 0 && nomeDono.getText().length() != 0 && telefone.getText().length() != 0) {
+			
+		}else {
+			JOptionPane.showMessageDialog(this, "Favor preencher todos os campos.");
+		}
+	}
+	private void preencherArea() {
+		for (Pet p : PetProcess.pets) {
+			texto+=p.toString();
+		}
+		area.setText(texto);
+	}
+	
+	public static void main(String[] args) throws ParseException {
+		PetProcess.carregarTestes();
+		new PetForm().setVisible(true);
 	}
 }
