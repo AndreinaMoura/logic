@@ -3,18 +3,13 @@ package visao;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controle.DAOPlanilha;
 import controle.ProcessaPlanilha;
-import controle.UsuarioProcessa;
-import modelo.Planilha;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class TelaLogin extends JFrame implements ActionListener {
 
@@ -62,13 +57,7 @@ public class TelaLogin extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cadastro) {
-			String a = nome.getText();
-			ProcessaPlanilha.carregar();
-			String b = ano.getText();
-			ProcessaPlanilha.carregar();
-			ProcessaPlanilha.saida();
-			this.dispose();// Fecha o Formulário
-				
+			
 		}
 	}
 	public static void main(String[] args) {

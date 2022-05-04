@@ -1,7 +1,10 @@
 package visao;
 
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.Currency;
+import java.util.Locale;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
 
@@ -34,15 +37,16 @@ public class PetForm extends JFrame implements ActionListener {
 	private JButton cadastrar, buscar, alterar, excluir;
 	private JTextArea area;
 	private ImageIcon icon;
-//	private String imgIco = ;
 	private String[] imagens = {
 			"C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Pets\\dadinhos\\img.jpg",
 			"C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Pets\\dadinhos\\img.jpg",
 			"C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Pets\\dadinhos\\doguinho.png",
 			"C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Pets\\dadinhos\\coelho.png",
 			"C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Pets\\dadinhos\\passáro.jpg" };
-	private int autoId = 1;
+	private int autoId = PetProcess.pets.size() + 1;
 	private String texto = "";
+	private final Locale BRASIL = new Locale("pt", "BR");
+	private DecimalFormat df = new DecimalFormat("#.00");
 
 	public PetForm() {
 
@@ -68,7 +72,7 @@ public class PetForm extends JFrame implements ActionListener {
 		rotulo2 = new JLabel("Espécie:");
 		rotulo2.setBounds(40, 80, 100, 20);
 
-		especie = new JComboBox<String>(new String[] { " ", "Gato", "Cachorro", "Coelho", "Passáro" });
+		especie = new JComboBox<String>(new String[] { " ", "Gato", "Cachorro", "Coelho", "Pássaro" });
 		especie.setBounds(140, 80, 200, 30);
 		especie.addActionListener(this);
 
@@ -119,7 +123,8 @@ public class PetForm extends JFrame implements ActionListener {
 		imagem.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		mostrarImagem(0);
 
-		rotulo9 = new JLabel(String.format("Id:  Espécie:         Raça:      Nome do Pet:      Peso:   Idade:        Nome do Dono      Telefone:        "));
+		rotulo9 = new JLabel(String.format(
+				"Id   Espécie       Raça                     Pet              Peso            Idade              Dono             Telefone"));
 		rotulo9.setBounds(40, 300, 500, 150);
 
 		cadastrar = new JButton("Cadastrar");
@@ -167,65 +172,169 @@ public class PetForm extends JFrame implements ActionListener {
 		painel.add(excluir);
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == cadastrar) {
-			JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
-			alterar.setEnabled(true);
-			excluir.setEnabled(true);
-		}
-		if (e.getSource() == buscar) {
-			JOptionPane.showMessageDialog(this, "O que deseja buscar?");
-			String mensagem = "";
-
-			int indice = 0 ;
-			if (indice != -1) {
-//			= PetProcess.checarNome(nomePet.getText())
-//			JOptionPane.showInputDialog(this, mensagem);
-//			mensagem = scan.next();
-//			if(mensagem.toLowerCase().equals(nomePet.toLowerCase()));
-				JOptionPane.showMessageDialog(this, "Pet encontrado");
-				this.dispose();// Fecha o Formulário
-
-			} else {
-				JOptionPane.showMessageDialog(this, "Pet não encontrado");
-			}
-			alterar.setEnabled(true);
-			excluir.setEnabled(true);
-		}
-		if (e.getSource() == alterar) {
-			JOptionPane.showMessageDialog(this, "Alterado com sucesso");
-		}
-		if (e.getSource() == excluir) {
-			JOptionPane.showMessageDialog(this, "Excluído com sucesso");
-			excluir.setEnabled(false);
-			alterar.setEnabled(false);
-		}
-		if (e.getSource() == especie) {
-			mostrarImagem(especie.getSelectedIndex());
-		}
-	}
-
 	private void mostrarImagem(int indice) {
 		icon = new ImageIcon(new ImageIcon(imagens[indice]).getImage().getScaledInstance(200, 150, 200));
 		imagem.setIcon(icon);
 	}
 
 	private void cadastrar() {
-		if(nomePet.getText().length() != 0 && raca.getText().length() != 0 && peso.getText().length() != 0 && nascimento.getText().length() != 0 && nomeDono.getText().length() != 0 && telefone.getText().length() != 0) {
-			
-		}else {
+		if (nomePet.getText().length() != 0 && raca.getText().length() != 0 && peso.getText().length() != 0
+				&& nascimento.getText().length() != 0 && nomeDono.getText().length() != 0
+				&& telefone.getText().length() != 0) {
+
+			df.setCurrency(Currency.getInstance(BRASIL));
+			float p;
+			try {
+				p = Float.parseFloat(df.parse(peso.getText()).toString());
+			} catch (ParseException e) {
+				System.out.println(e);
+				p = 0;
+			}
+			PetProcess.pets.add(new Pet(autoId, especie.getSelectedItem().toString(), nomePet.getText(), raca.getText(),
+					p, nascimento.getText(), nomeDono.getText(), telefone.getText()));
+			autoId++;
+			preencherArea();
+			limparCampos();
+			JOptionPane.showMessageDialog(this, "Cadastrado com sucesso");
+			alterar.setEnabled(true);
+			excluir.setEnabled(true);
+		} else {
 			JOptionPane.showMessageDialog(this, "Favor preencher todos os campos.");
 		}
+		
 	}
+
+	private void limparCampos() {
+		nomePet.setText(null);
+		raca.setText(null);
+		peso.setText(null);
+		nascimento.setText(null);
+		nomeDono.setText(null);
+		telefone.setText(null);
+	}
+
+	int ObterIndiceEspecie(String especie) {
+		switch (especie) {
+		case "":
+			return 0;
+		case "gato":
+			return 1;
+		case "cachorro":
+			return 2;
+		case "coelho":
+			return 3;
+		case "pássaro":
+			return 4;
+		default:
+			return -1;
+		}
+	}
+
 	private void preencherArea() {
+		texto = "";
 		for (Pet p : PetProcess.pets) {
-			texto+=p.toString();
+			texto += p.toString();
 		}
 		area.setText(texto);
 	}
+
+	public void buscar() {
+		String entrada = JOptionPane.showInputDialog("Digite o ID do animal: ");
+		int ID = Integer.parseInt(entrada);
+		Pet pet = new Pet(ID);
+		if (PetProcess.pets.contains(pet)) {
+			int indice = PetProcess.pets.indexOf(pet);
+
+			id.setText(PetProcess.pets.get(indice).getId("s"));
+			nomePet.setText(PetProcess.pets.get(indice).getNomePet());
+			especie.setSelectedIndex(ObterIndiceEspecie(PetProcess.pets.get(indice).getEspecie()));
+			raca.setText(PetProcess.pets.get(indice).getRaca());
+			peso.setText(PetProcess.pets.get(indice).getPeso("s"));
+			nascimento.setText(PetProcess.pets.get(indice).getNascimento("s"));
+			nomeDono.setText(PetProcess.pets.get(indice).getNomeDono());
+			telefone.setText(PetProcess.pets.get(indice).getTelefone());
+			
+			cadastrar.setEnabled(false);
+			alterar.setEnabled(true);
+			excluir.setEnabled(true);
+			PetProcess.salvar();
+		} else {
+			JOptionPane.showMessageDialog(this, "Pet não encontrado");
+		}
+		
+	}
+
 	
-	public static void main(String[] args) throws ParseException {
-		PetProcess.carregarTestes();
+	private void alterar() {
+		if (nomePet.getText().length() != 0 && raca.getText().length() != 0 && peso.getText().length() != 0
+				&& nascimento.getText().length() != 0 && nomeDono.getText().length() != 0
+				&& telefone.getText().length() != 0) {
+			int ID = Integer.parseInt(id.getText());
+			Pet pet = new Pet(ID);
+			int indice = PetProcess.pets.indexOf(pet);
+			df.setCurrency(Currency.getInstance(BRASIL));
+			float p;
+			try {
+				p = Float.parseFloat(df.parse(peso.getText()).toString());
+			} catch (ParseException e) {
+				System.out.println(e);
+				p = 0;
+			}
+			PetProcess.pets.set(indice,new Pet(autoId, especie.getSelectedItem().toString(), nomePet.getText(), raca.getText(),
+					p, nascimento.getText(), nomeDono.getText(), telefone.getText()));
+			
+			preencherArea();
+			limparCampos();
+			JOptionPane.showMessageDialog(this, "Alterado com sucesso");
+			cadastrar.setEnabled(true);
+			alterar.setEnabled(false);
+			excluir.setEnabled(false);
+			id.setText(String.format("%d", autoId));
+			PetProcess.salvar();
+		} else {
+			JOptionPane.showMessageDialog(this, "Favor preencher todos os campos.");
+		}
+		
+	}
+	private void excluir() {
+		int ID = Integer.parseInt(id.getText());
+		Pet pet = new Pet(ID);
+		int indice = PetProcess.pets.indexOf(pet); 
+		PetProcess.pets.remove(indice);
+		preencherArea();
+		limparCampos();
+		JOptionPane.showMessageDialog(this, "Excluído com sucesso");
+		cadastrar.setEnabled(true);
+		alterar.setEnabled(false);
+		excluir.setEnabled(false);
+		id.setText(String.format("%d", autoId));
+		PetProcess.salvar();
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == cadastrar) {
+			cadastrar();
+			
+		}
+		if (e.getSource() == buscar) {
+			buscar();
+		}
+		if (e.getSource() == alterar) {
+			alterar();
+			
+		}
+		if (e.getSource() == excluir) {
+			excluir();
+			
+		}
+		if (e.getSource() == especie) {
+			mostrarImagem(especie.getSelectedIndex());
+		}
+	}
+
+	public static void main(String[] args) {
+//		PetProcess.carregarTestes();
+		PetProcess.abrir();
 		new PetForm().setVisible(true);
 	}
 }
