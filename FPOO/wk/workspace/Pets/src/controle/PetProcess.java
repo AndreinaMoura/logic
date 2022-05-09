@@ -10,11 +10,11 @@ public class PetProcess {
 	private static PetDAO pd = new PetDAO();
 
 	public static void abrir() {
-		pets.pd.ler();
+		pets = pd.ler();
 	}
-
+	
 	public static void salvar() {
-		pets.pd.escrever();
+		pd.escrever(pets);
 	}
 
 	public static void carregarTestes() {

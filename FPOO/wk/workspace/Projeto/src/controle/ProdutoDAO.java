@@ -8,23 +8,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import modelo.Pet;
+import modelo.Produto;
 
-public class PetDAO {
+public class ProdutoDAO {
+
+	private BufferedReader br;
+	private BufferedWriter bw;
+	private String path = "C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Projeto\\dados\\projeto.csv";
 	
-	BufferedReader br;
-	BufferedWriter bw;
-	String path = "C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Pets\\dadinhos\\Pets.csv";
-	
-	public ArrayList<Pet> ler() {
-		ArrayList<Pet> linhas = new ArrayList<>();
-		Pet p;
+	public ArrayList<Produto> ler() {
+		ArrayList<Produto> linhas = new ArrayList<>();
+		Produto prod;
 		try {
 			br = new BufferedReader(new FileReader(path));
 			String linha = br.readLine();
 			while(linha != null) {
-				p = new Pet(linha);
-				linhas.add(p);
+				prod = new Produto(linha);
+				linhas.add(prod);
 				linha = br.readLine();
 			}
 			br.close();
@@ -36,11 +36,11 @@ public class PetDAO {
 		return linhas;
 	}
 	
-	public void escrever(ArrayList<Pet> linhas) {
+	public void escrever(ArrayList<Produto> linhas) {
 		try {
 			bw = new BufferedWriter(new FileWriter(path));
-			for (Pet p : linhas) {
-				bw.write(p.toCSV());
+			for (Produto p : linhas) {
+				bw.write(p.toCSV()+"\n");
 			}
 			bw.close();
 		} catch (IOException e) {

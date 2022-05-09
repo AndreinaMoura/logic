@@ -201,7 +201,7 @@ public class PetForm extends JFrame implements ActionListener {
 		} else {
 			JOptionPane.showMessageDialog(this, "Favor preencher todos os campos.");
 		}
-		
+
 	}
 
 	private void limparCampos() {
@@ -239,39 +239,50 @@ public class PetForm extends JFrame implements ActionListener {
 	}
 
 	public void buscar() {
-		String entrada = JOptionPane.showInputDialog("Digite o ID do animal: ");
-		int ID = Integer.parseInt(entrada);
-		Pet pet = new Pet(ID);
-		if (PetProcess.pets.contains(pet)) {
-			int indice = PetProcess.pets.indexOf(pet);
+		String entrada = JOptionPane.showInputDialog(this, "Digite o Id do animal:");
 
-			id.setText(PetProcess.pets.get(indice).getId("s"));
-			nomePet.setText(PetProcess.pets.get(indice).getNomePet());
-			especie.setSelectedIndex(ObterIndiceEspecie(PetProcess.pets.get(indice).getEspecie()));
-			raca.setText(PetProcess.pets.get(indice).getRaca());
-			peso.setText(PetProcess.pets.get(indice).getPeso("s"));
-			nascimento.setText(PetProcess.pets.get(indice).getNascimento("s"));
-			nomeDono.setText(PetProcess.pets.get(indice).getNomeDono());
-			telefone.setText(PetProcess.pets.get(indice).getTelefone());
-			
-			cadastrar.setEnabled(false);
-			alterar.setEnabled(true);
-			excluir.setEnabled(true);
-			PetProcess.salvar();
+		boolean isNumeric = true;
+		if (entrada != null) {
+			for (int i = 0; i < entrada.length(); i++) {
+				if (!Character.isDigit(entrada.charAt(i))) {
+					isNumeric = false;
+				}
+			}
 		} else {
-			JOptionPane.showMessageDialog(this, "Pet não encontrado");
+			isNumeric = false;
 		}
-		
+		if (isNumeric) {
+			int ID = Integer.parseInt(entrada);
+			Pet pet = new Pet(ID);
+			if (PetProcess.pets.contains(pet)) {
+				int indice = PetProcess.pets.indexOf(pet);
+				id.setText(PetProcess.pets.get(indice).getId("s"));
+				nomePet.setText(PetProcess.pets.get(indice).getNomePet());
+				especie.setSelectedIndex(ObterIndiceEspecie(PetProcess.pets.get(indice).getEspecie()));
+				raca.setText(PetProcess.pets.get(indice).getRaca());
+				peso.setText(PetProcess.pets.get(indice).getPeso("s"));
+				nascimento.setText(PetProcess.pets.get(indice).getNascimento("s"));
+				nomeDono.setText(PetProcess.pets.get(indice).getNomeDono());
+				telefone.setText(PetProcess.pets.get(indice).getTelefone());
+				cadastrar.setEnabled(false);
+				alterar.setEnabled(true);
+				excluir.setEnabled(true);
+				PetProcess.salvar();
+			} else {
+				JOptionPane.showMessageDialog(this, "Pet não encontrado");
+			}
+		}
 	}
 
-	
 	private void alterar() {
+		int ID = Integer.parseInt(id.getText());
+		Pet pet = new Pet(ID);
+		int indice = PetProcess.pets.indexOf(pet);
 		if (nomePet.getText().length() != 0 && raca.getText().length() != 0 && peso.getText().length() != 0
 				&& nascimento.getText().length() != 0 && nomeDono.getText().length() != 0
 				&& telefone.getText().length() != 0) {
-			int ID = Integer.parseInt(id.getText());
-			Pet pet = new Pet(ID);
-			int indice = PetProcess.pets.indexOf(pet);
+
+			// Converter o peso no formato Brasileiro usando virgula como decimal
 			df.setCurrency(Currency.getInstance(BRASIL));
 			float p;
 			try {
@@ -280,26 +291,24 @@ public class PetForm extends JFrame implements ActionListener {
 				System.out.println(e);
 				p = 0;
 			}
-			PetProcess.pets.set(indice,new Pet(autoId, especie.getSelectedItem().toString(), nomePet.getText(), raca.getText(),
-					p, nascimento.getText(), nomeDono.getText(), telefone.getText()));
-			
+			PetProcess.pets.set(indice, new Pet(autoId, especie.getSelectedItem().toString(), nomePet.getText(),
+					raca.getText(), p, nascimento.getText(), nomeDono.getText(), telefone.getText()));
 			preencherArea();
 			limparCampos();
-			JOptionPane.showMessageDialog(this, "Alterado com sucesso");
-			cadastrar.setEnabled(true);
-			alterar.setEnabled(false);
-			excluir.setEnabled(false);
-			id.setText(String.format("%d", autoId));
-			PetProcess.salvar();
 		} else {
 			JOptionPane.showMessageDialog(this, "Favor preencher todos os campos.");
 		}
-		
+		cadastrar.setEnabled(true);
+		alterar.setEnabled(false);
+		excluir.setEnabled(false);
+		id.setText(String.format("%d", autoId));
+		PetProcess.salvar();
 	}
+
 	private void excluir() {
 		int ID = Integer.parseInt(id.getText());
 		Pet pet = new Pet(ID);
-		int indice = PetProcess.pets.indexOf(pet); 
+		int indice = PetProcess.pets.indexOf(pet);
 		PetProcess.pets.remove(indice);
 		preencherArea();
 		limparCampos();
@@ -314,18 +323,18 @@ public class PetForm extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cadastrar) {
 			cadastrar();
-			
+
 		}
 		if (e.getSource() == buscar) {
 			buscar();
 		}
 		if (e.getSource() == alterar) {
 			alterar();
-			
+
 		}
 		if (e.getSource() == excluir) {
 			excluir();
-			
+
 		}
 		if (e.getSource() == especie) {
 			mostrarImagem(especie.getSelectedIndex());
