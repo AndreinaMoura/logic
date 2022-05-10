@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import modelo.Produto;
@@ -16,7 +17,7 @@ public class ProdutoDAO {
 	private BufferedWriter bw;
 	private String path = "C:\\Users\\DESENVOLVIMENTO\\Desktop\\logic\\FPOO\\wk\\workspace\\Projeto\\dados\\projeto.csv";
 	
-	public ArrayList<Produto> ler() {
+	public ArrayList<Produto> ler() throws NumberFormatException, ParseException {
 		ArrayList<Produto> linhas = new ArrayList<>();
 		Produto prod;
 		try {

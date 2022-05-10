@@ -33,10 +33,10 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	private JScrollPane rolagem;
 	private JTextArea verResultados;
 	private JButton create, read, update, delete;
-	private String imgIco = "./assets/icone.png";
-	private String[] imagens = { "./assets/doguinho.png", "./assets/miau.png", "./assets/coelho.png",
-			"./assets/ornitorrinco.png" };
-	private ImageIcon icon;
+	private String imgIco = "C:\\Users\\Desenvolvimento\\Desktop\\logic\\FPOO\\wk\\workspace\\Projeto\\assets\\cafe.jpg";
+//	private String[] imagens = { "./assets/arroz.webp", "./assets/miau.png", "./assets/coelho.png",
+//			"./assets/ornitorrinco.png" };
+//	private ImageIcon icon;
 	private int autoId = ProdutoProcess.produtos.size() + 1;
 	private String texto = "";
 
@@ -47,132 +47,112 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	private DecimalFormat df = new DecimalFormat("#.00");
 
 	ProdutoForm() {
-		setTitle("Mercado Dois Irmãos");
+		setTitle("Mercado Dois Irmï¿½os");
 		setBounds(100, 100, 800, 650);
 		setIconImage(new ImageIcon(imgIco).getImage());
 		painel = new JPanel();
+		// cor de fundo
 		painel.setBackground(new Color(153, 204, 255));
 		setContentPane(painel);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(null);
 
-//		InputDecoration(InputBorder.none);
-
-		codigoProduto = new JLabel("Código do produto:");
-		codigoProduto.setBounds(20, 20, 120, 30);
+		codigoProduto = new JLabel("CÃ³digo do produto:");
+		codigoProduto.setBounds(20, 25, 120, 30);
 		painel.add(codigoProduto);
-		codigoProduto.setForeground(Color.white);
-
-		estoque = new JLabel("Novo Estoque:");
-		estoque.setBounds(20, 55, 120, 30);
-		painel.add(estoque);
-		estoque.setForeground(Color.white);
-
-		qtdEstoque = new JLabel("Qtd. em Estoque:");
-		qtdEstoque.setBounds(285, 55, 120, 30);
-		painel.add(qtdEstoque);
-		qtdEstoque.setForeground(Color.white);
-
-		fornecedor = new JLabel("Fornecedor:");
-		fornecedor.setBounds(20, 90, 120, 30);
-		painel.add(fornecedor);
-		fornecedor.setForeground(Color.white);
-
-		nomeProduto = new JLabel("Nome do Produto:");
-		nomeProduto.setBounds(285, 20, 120, 30);
-		painel.add(nomeProduto);
-		nomeProduto.setForeground(Color.white);
-
-		lucro = new JLabel("Lucro:");
-		lucro.setBounds(340, 90, 120, 30);
-		painel.add(lucro);
-		lucro.setForeground(Color.white);
-
-		precoVenda = new JLabel("Preço de Venda:");
-		precoVenda.setBounds(20, 125, 120, 30);
-		painel.add(precoVenda);
-		precoVenda.setForeground(Color.white);
-
-		precoUnitario = new JLabel("Preço Unitário:");
-		precoUnitario.setBounds(285, 125, 120, 30);
-		painel.add(precoUnitario);
-		precoUnitario.setForeground(Color.white);
-
-		dtFabricacao = new JLabel("Data de Fabricação:");
-		dtFabricacao.setBounds(20, 165, 120, 30);
-		painel.add(dtFabricacao);
-		dtFabricacao.setForeground(Color.white);
-
-		dtValidade = new JLabel("Data de Validade:");
-		dtValidade.setBounds(285, 165, 120, 30);
-		painel.add(dtValidade);
-		dtValidade.setForeground(Color.white);
-
-		rotulos = new JLabel("Cód|Nome|Qtd no Estoque|Fornecedor|Vencimento|Preço|Status:");
-		rotulos.setBounds(20, 340, 600, 30);
-		painel.add(rotulos);
-		rotulos.setForeground(Color.white);
-
 		tfcodigoProduto = new JTextField(String.format("%d", autoId));
 		tfcodigoProduto.setEditable(false);
-		tfcodigoProduto.setBounds(140, 25, 100, 30);
+		tfcodigoProduto.setBounds(140, 25, 40, 30);
 		painel.add(tfcodigoProduto);
 		tfcodigoProduto.setBackground(new Color(215, 215, 215));
 		tfcodigoProduto.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
-		tfestoque = new JTextField();
-		tfestoque.setBounds(140, 60, 100, 30);
-		painel.add(tfestoque);
-		tfestoque.setBackground(new Color(215, 215, 215));
-		tfestoque.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
-		tfqtdEstoque = new JTextField();
-		tfqtdEstoque.setBounds(405, 60, 100, 30);
-		painel.add(tfqtdEstoque);
-		tfqtdEstoque.setBackground(new Color(215, 215, 215));
-		tfqtdEstoque.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
-		tffornecedor = new JTextField();
-		tffornecedor.setBounds(140, 95, 150, 30);
-		painel.add(tffornecedor);
-		tffornecedor.setBackground(new Color(215, 215, 215));
-		tffornecedor.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
+		
+		nomeProduto = new JLabel("Nome do Produto:");
+		nomeProduto.setBounds(20, 60, 120, 30);
+		painel.add(nomeProduto);
 		tfnomeProduto = new JTextField();
-		tfnomeProduto.setBounds(405, 25, 100, 30);
+		tfnomeProduto.setBounds(140, 60, 300, 30);
 		painel.add(tfnomeProduto);
 		tfnomeProduto.setBackground(new Color(215, 215, 215));
 		tfnomeProduto.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
+		estoque = new JLabel("Novo Estoque:");
+		estoque.setBounds(20, 95, 120, 30);
+		painel.add(estoque);
+		tfestoque = new JTextField();
+		tfestoque.setBounds(140, 95, 100, 30);
+		painel.add(tfestoque);
+		tfestoque.setBackground(new Color(215, 215, 215));
+		tfestoque.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+		qtdEstoque = new JLabel("Estoque Atual:");
+		qtdEstoque.setBounds(250, 95, 120, 30);
+		painel.add(qtdEstoque);
+		tfqtdEstoque = new JTextField();
+		tfqtdEstoque.setBounds(340, 95, 100, 30);
+		painel.add(tfqtdEstoque);
+		tfqtdEstoque.setBackground(new Color(215, 215, 215));
+		tfqtdEstoque.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+		fornecedor = new JLabel("Fornecedor:");
+		fornecedor.setBounds(20, 130, 120, 30);
+		painel.add(fornecedor);
+		tffornecedor = new JTextField();
+		tffornecedor.setBounds(140, 130, 300, 30);
+		painel.add(tffornecedor);
+		tffornecedor.setBackground(new Color(215, 215, 215));
+		tffornecedor.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+		lucro = new JLabel("Lucro:");
+		lucro.setBounds(20, 165, 120, 30);
+		painel.add(lucro);
 		tflucro = new JTextField();
-		tflucro.setBounds(405, 95, 100, 30);
+		tflucro.setBounds(140, 165, 100, 30);
 		painel.add(tflucro);
 		tflucro.setBackground(new Color(215, 215, 215));
 		tflucro.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
-		tfprecoVenda = new JTextField();
-		tfprecoVenda.setBounds(140, 130, 100, 30);
-		painel.add(tfprecoVenda);
-		tfprecoVenda.setBackground(new Color(215, 215, 215));
-		tfprecoVenda.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
+		
+		precoUnitario = new JLabel("PreÃ§o UnitÃ¡rio:");
+		precoUnitario.setBounds(250, 165, 120, 30);
+		painel.add(precoUnitario);
 		tfprecoUnitario = new JTextField();
-		tfprecoUnitario.setBounds(405, 130, 100, 30);
+		tfprecoUnitario.setBounds(340, 165, 100, 30);
 		painel.add(tfprecoUnitario);
 		tfprecoUnitario.setBackground(new Color(215, 215, 215));
 		tfprecoUnitario.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
+		precoVenda = new JLabel("PreÃ§o de Venda:");
+		precoVenda.setBounds(220, 25, 120, 30);
+		painel.add(precoVenda);
+		tfprecoVenda = new JTextField();
+		tfprecoVenda.setBounds(320, 25, 120, 30);
+		painel.add(tfprecoVenda);
+		tfprecoVenda.setBackground(new Color(119,221,119));
+		tfprecoVenda.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+		dtFabricacao = new JLabel("Data de FabricaÃ§Ã£o:");
+		dtFabricacao.setBounds(20, 200, 120, 30);
+		painel.add(dtFabricacao);
 		tfdtFabricacao = new JTextField();
-		tfdtFabricacao.setBounds(140, 165, 100, 30);
+		tfdtFabricacao.setBounds(140, 200, 120, 30);
 		painel.add(tfdtFabricacao);
 		tfdtFabricacao.setBackground(new Color(215, 215, 215));
 		tfdtFabricacao.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
+		dtValidade = new JLabel("Data de Validade:");
+		dtValidade.setBounds(20, 235, 120, 30);
+		painel.add(dtValidade);
 		tfdtValidade = new JTextField();
-		tfdtValidade.setBounds(405, 165, 100, 30);
+		tfdtValidade.setBounds(140, 235, 120, 30);
 		painel.add(tfdtValidade);
 		tfdtValidade.setBackground(new Color(215, 215, 215));
 		tfdtValidade.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+		rotulos = new JLabel("CÃ³d | Nome | Qtd no Estoque | Fornecedor | Vencimento | PreÃ§o | Status:");
+		rotulos.setBounds(20, 340, 600, 30);
+		painel.add(rotulos);
+		rotulos.setForeground(Color.black);
+
 
 		verResultados = new JTextArea();
 		verResultados.setEditable(false);
@@ -207,7 +187,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		delete.setEnabled(false);
 		painel.add(delete);
 
-		// Ouvir os eventos dos Botões, ComboBox e outros
+		// Ouvir os eventos dos BotÃµes, ComboBox e outros
 		create.setBackground(C1);
 		read.setBackground(C1);
 		update.setBackground(C1);
@@ -220,31 +200,32 @@ public class ProdutoForm extends JFrame implements ActionListener {
 
 	}
 
+//	private void alternarImagens(int indice) {
+//		icon = new ImageIcon(new ImageIcon(imagens[indice]).getImage().getScaledInstance(350, 240, 100));
+//		imagem.setIcon(icon);
+//	}
+
 	// CREATE - CRUD
 	private void cadastrar() {
 		if (tfcodigoProduto.getText().length() != 0 && tfestoque.getText().length() != 0
-				&& tfqtdEstoque.getText().length() != 0 && tfnomeProduto.getText().length() != 0
+				&& tfnomeProduto.getText().length() != 0
 				&& tffornecedor.getText().length() != 0 && tflucro.getText().length() != 0
-				&& tfprecoVenda.getText().length() != 0 && tfprecoUnitario.getText().length() != 0
-				&& tfdtFabricacao.getText().length() != 0 && tfdtValidade.getText().length() != 0) {
+				&& tfprecoUnitario.getText().length() != 0 && tfdtFabricacao.getText().length() != 0
+				&& tfdtValidade.getText().length() != 0) {
 
 			// Converter o peso no formato Brasileiro usando virgula como decimal
 			df.setCurrency(Currency.getInstance(BRASIL));
-			float pV, pU, l;
+			float pU;
 			try {
-				pV = Float.parseFloat(df.parse(precoVenda.getText()).toString());
 				pU = Float.parseFloat(df.parse(precoUnitario.getText()).toString());
-				l = Float.parseFloat(df.parse(lucro.getText()).toString());
 			} catch (ParseException e) {
 				System.out.println(e);
-				pV = 0;
 				pU = 0;
-				l = 0;
 			}
 
 			ProdutoProcess.produtos.add(new Produto(autoId, nomeProduto.getText(), Integer.parseInt(estoque.getText()),
-					Integer.parseInt(qtdEstoque.getText()), fornecedor.getText(), l, dtFabricacao.getText(),
-					dtValidade.getText(), pV, pU));
+					Integer.parseInt(qtdEstoque.getText()), fornecedor.getText(), Integer.parseInt(lucro.getText()),
+					dtFabricacao.getText(), dtValidade.getText(), pU));
 			autoId++;
 			preencherAreaDeTexto();
 			limparCampos();
@@ -267,7 +248,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	}
 
 	private void preencherAreaDeTexto() {
-		texto = ""; // Limpar a área de texto antes de preenher
+		texto = ""; // Limpar a ï¿½rea de texto antes de preenher
 		for (Produto p : ProdutoProcess.produtos) {
 			texto += p.toString();
 		}
@@ -276,7 +257,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 
 	// READ - CRUD
 	private void buscar() {
-		String entrada = JOptionPane.showInputDialog(this, "Digite o código do produto:");
+		String entrada = JOptionPane.showInputDialog(this, "Digite o cï¿½digo do produto:");
 
 		boolean isNumeric = true;
 		if (entrada != null) {
@@ -293,21 +274,22 @@ public class ProdutoForm extends JFrame implements ActionListener {
 			Produto prod = new Produto(id);
 			if (ProdutoProcess.produtos.contains(prod)) {
 				int indice = ProdutoProcess.produtos.indexOf(prod);
-				tfcodigoProduto.setText(ProdutoProcess.produtos.get(indice).getCodProduto()+"");
-				tfestoque.setText(ProdutoProcess.produtos.get(indice).getEstoque()+"");
-				tfqtdEstoque.setText(ProdutoProcess.produtos.get(indice).getQtdEstoque()+"");
+				tfcodigoProduto.setText(ProdutoProcess.produtos.get(indice).getCodProduto("s"));
+				tfestoque.setText(ProdutoProcess.produtos.get(indice).getEstoque("s"));
+				tfqtdEstoque.setText(ProdutoProcess.produtos.get(indice).getQtdEstoque("s"));
 				tfnomeProduto.setText(ProdutoProcess.produtos.get(indice).getNomeProduto());
-				tflucro.setText(ProdutoProcess.produtos.get(indice).getLucro()+"");
-				tfprecoVenda.setText(ProdutoProcess.produtos.get(indice).getPrecoVenda()+"");
-				tfprecoUnitario.setText(ProdutoProcess.produtos.get(indice).getPrecoUnitario()+"");
-				tfdtFabricacao.setText(ProdutoProcess.produtos.get(indice).getDtFabricacao()+"");
-				tfdtValidade.setText(ProdutoProcess.produtos.get(indice).getDtValidade()+"");
+				tffornecedor.setText(ProdutoProcess.produtos.get(indice).getFornecedor());
+				tflucro.setText(ProdutoProcess.produtos.get(indice).getLucro("s"));
+				tfprecoVenda.setText(ProdutoProcess.produtos.get(indice).getPrecoVenda("s"));
+				tfprecoUnitario.setText(ProdutoProcess.produtos.get(indice).getPrecoUnitario("s"));
+				tfdtFabricacao.setText(ProdutoProcess.produtos.get(indice).getDtFabricacao("s"));
+				tfdtValidade.setText(ProdutoProcess.produtos.get(indice).getDtValidade("s"));
 				create.setEnabled(false);
 				update.setEnabled(true);
 				delete.setEnabled(true);
 				ProdutoProcess.salvar();
 			} else {
-				JOptionPane.showMessageDialog(this, "Produto não encontrado");
+				JOptionPane.showMessageDialog(this, "Produto nï¿½o encontrado");
 			}
 		}
 
@@ -316,30 +298,29 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	// UPDATE - CRUD
 	private void alterar() {
 		int id = Integer.parseInt(codigoProduto.getText());
-		Produto pet = new Produto(id);
-		int indice = ProdutoProcess.produtos.indexOf(pet);
-		if (estoque.getText().length() != 0 && qtdEstoque.getText().length() != 0 && nomeProduto.getText().length() != 0
-				&& lucro.getText().length() != 0 && dtFabricacao.getText().length() != 0
-				&& dtValidade.getText().length() != 0) {
+		Produto prod = new Produto(id);
+		int indice = ProdutoProcess.produtos.indexOf(prod);
+		if (tfcodigoProduto.getText().length() != 0 && tfestoque.getText().length() != 0
+				&& tfqtdEstoque.getText().length() != 0 && tfnomeProduto.getText().length() != 0
+				&& tffornecedor.getText().length() != 0 && tflucro.getText().length() != 0
+				&& tfprecoUnitario.getText().length() != 0 && tfdtFabricacao.getText().length() != 0
+				&& tfdtValidade.getText().length() != 0) {
 
 			// Converter o peso no formato Brasileiro usando virgula como decimal
 			df.setCurrency(Currency.getInstance(BRASIL));
-			float pV, pU, l;
+			float pU;
 			try {
-				pV = Float.parseFloat(df.parse(precoVenda.getText()).toString());
 				pU = Float.parseFloat(df.parse(precoUnitario.getText()).toString());
-				l = Float.parseFloat(df.parse(lucro.getText()).toString());
 			} catch (ParseException e) {
 				System.out.println(e);
-				pV = 0;
 				pU = 0;
-				l = 0;
 			}
 
 			ProdutoProcess.produtos.set(indice,
 					new Produto(Integer.parseInt(codigoProduto.getText()), nomeProduto.getText(),
 							Integer.parseInt(estoque.getText()), Integer.parseInt(qtdEstoque.getText()),
-							fornecedor.getText(), l, dtFabricacao.getText(), dtValidade.getText(), pV, pU));
+							fornecedor.getText(), Integer.parseInt(lucro.getText()), dtFabricacao.getText(),
+							dtValidade.getText(), pU));
 			preencherAreaDeTexto();
 			limparCampos();
 		} else {

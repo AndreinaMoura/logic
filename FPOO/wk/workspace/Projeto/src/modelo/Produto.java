@@ -14,7 +14,7 @@ public class Produto {
 	private String nomeProduto;
 	private int estoque;
 	private int qtdEstoque;
-	private float lucro;
+	private int lucro;
 	private String fornecedor;
 	private double precoVenda;
 	private double precoUnitario;
@@ -31,8 +31,8 @@ public class Produto {
 	}
 
 	// Construtor completo
-	public Produto(int codProduto, String nomeProduto, int estoque, int qtdEstoque, String fornecedor, float lucro,
-			String dtFabricacao, String dtValidade, double precoVenda, double precoUnitario) {
+	public Produto(int codProduto, String nomeProduto, int estoque, int qtdEstoque, String fornecedor, int lucro,
+			String dtFabricacao, String dtValidade, double precoUnitario) {
 		this.codProduto = codProduto;
 		this.nomeProduto = nomeProduto;
 		this.estoque = estoque;
@@ -49,47 +49,36 @@ public class Produto {
 		} catch (ParseException e) {
 			System.out.println(e);
 		}
-		this.precoVenda = precoVenda;
 		this.precoUnitario = precoUnitario;
 	}
 
 	// Construtor para receber dados do arquivo
-	public Produto(String linha) {
+	public Produto(String linha) throws NumberFormatException, ParseException {
 		df.setCurrency(Currency.getInstance(BRASIL));
 
 		this.codProduto = Integer.parseInt(linha.split(";")[0]);
 		this.estoque = Integer.parseInt(linha.split(";")[1]);
 		this.qtdEstoque = Integer.parseInt(linha.split(";")[2]);
 		this.nomeProduto = linha.split(";")[3];
+		this.fornecedor = linha.split(";")[4];
+		this.lucro = Integer.parseInt(linha.split(";")[5]);
 		try {
-			this.lucro = Float.parseFloat(df.parse(linha.split(";")[4]).toString());
-		} catch (ParseException e) {
-			System.out.println(e);
-		}
-		this.fornecedor = linha.split(";")[5];
-		try {
+			
 			this.precoVenda = Float.parseFloat(df.parse(linha.split(";")[6]).toString());
-		} catch (ParseException e) {
-			System.out.println(e);
-		}
-		try {
 			this.precoUnitario = Float.parseFloat(df.parse(linha.split(";")[7]).toString());
-		} catch (ParseException e) {
-			System.out.println(e);
-		}
-		try {
 			this.dtFabricacao = sdf.parse(linha.split(";")[8]);
-		} catch (ParseException e) {
-			System.out.println(e);
-		}
-		try {
 			this.dtValidade = sdf.parse(linha.split(";")[9]);
 		} catch (ParseException e) {
 			System.out.println(e);
 		}
+
 	}
 
 	// Getters && Setters
+
+	
+
+	
 
 	public int getCodProduto() {
 		return codProduto;
@@ -127,7 +116,7 @@ public class Produto {
 		return lucro;
 	}
 
-	public void setLucro(float lucro) {
+	public void setLucro(int lucro) {
 		this.lucro = lucro;
 	}
 
@@ -171,7 +160,7 @@ public class Produto {
 		this.dtValidade = dtValidade;
 	}
 
-	public String getCodigoProduto(String s) {
+	public String getCodProduto(String s) {
 		return String.format("%d", codProduto);
 	}
 
@@ -184,15 +173,15 @@ public class Produto {
 	}
 
 	public String getLucro(String s) {
-		return String.format("%d", lucro);
+		return String.format("%d %%",lucro);
 	}
 
 	public String getPrecoVenda(String s) {
-		return String.format("%.2f", precoVenda);
+		return valorTotal();
 	}
 
 	public String getPrecoUnitario(String s) {
-		return String.format("%.2f", precoUnitario);
+		return df.format(precoUnitario);
 	}
 
 	public String getDtFabricacao(String s) {
@@ -220,26 +209,24 @@ public class Produto {
 	}
 
 	public String status() {
-		@SuppressWarnings("deprecation")
-		int val = new Date().getYear() - dtValidade.getYear();
-		if (val < 0) {
-			return "Adequado";
-		} else {
+		Date hoje = new Date();
+		if (hoje.getTime() > dtValidade.getTime()) {
 			return "Inadequado";
+		} else {
+			return "Adequado";
 		}
 	}
 
 	@Override
 	public String toString() {
-		return codProduto + "       " + nomeProduto + "\t" + estoqueTotal() + "\t" + fornecedor + "\t"
-				+ "\t" + sdf.format(dtValidade) + "\t" + valorTotal() + "\t"
-				+ status() + "\n";
+		return codProduto + "       " + nomeProduto + "\t" + estoqueTotal() + "\t" + fornecedor + "\t" + "\t"
+				+ sdf.format(dtValidade) + "\t" + valorTotal() + "\t" + status() + "\n";
 	}
 
 	public String toCSV() {
-		return codProduto + ";" + nomeProduto + ";" + 0 + ";" + qtdEstoque + ";" + String.format("%.2f", lucro)
-				+ ";" + fornecedor + ";" + sdf.format(dtFabricacao) + ";" + sdf.format(dtValidade) + ";"
-				+ String.format("%.2f", precoVenda) + ";" + String.format("%.2f", precoUnitario) + "\n";
+		return codProduto + ";" + nomeProduto + ";" + estoque + ";" + qtdEstoque + ";" + fornecedor + ";" + lucro + "%"
+				+ ";" + sdf.format(dtFabricacao) + ";" + sdf.format(dtValidade) + ";"
+				+ String.format("%.2f", precoVenda) + ";" + String.format("%.2f", precoUnitario);
 	}
 
 	// Define o "id" como campo Chave
@@ -254,4 +241,5 @@ public class Produto {
 		Produto other = (Produto) obj;
 		return codProduto == other.codProduto;
 	}
+
 }
