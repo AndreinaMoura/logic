@@ -90,7 +90,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		tffornecedor.setBackground(new Color(215, 215, 215));
 		tffornecedor.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-		lucro = new JLabel("Lucro:");
+		lucro = new JLabel("Margem de Lucro:");
 		lucro.setBounds(20, 165, 120, 30);
 		painel.add(lucro);
 		tflucro = new JTextField();
@@ -197,9 +197,9 @@ public class ProdutoForm extends JFrame implements ActionListener {
 				pU = 0;
 			}
 
-			ProdutoProcess.produtos.add(new Produto(autoId, tfnomeProduto.getText(), Integer.parseInt(tfestoque.getText()),
-					tffornecedor.getText(), Integer.parseInt(tflucro.getText()), tfdtFabricacao.getText(),
-					tfdtValidade.getText(), pU));
+			ProdutoProcess.produtos.add(new Produto(autoId, tfnomeProduto.getText(),
+					Integer.parseInt(tfestoque.getText()), tffornecedor.getText(), Integer.parseInt(tflucro.getText()),
+					tfdtFabricacao.getText(), tfdtValidade.getText(), pU));
 			autoId++;
 			ProdutoProcess.salvar();
 			preencherAreaDeTexto();
@@ -290,9 +290,10 @@ public class ProdutoForm extends JFrame implements ActionListener {
 
 			ProdutoProcess.produtos.set(indice,
 					new Produto(Integer.parseInt(tfcodigoProduto.getText()), tfnomeProduto.getText(),
-							Integer.parseInt(tfestoque.getText()), tffornecedor.getText(),
-							Integer.parseInt(tflucro.getText()), tfdtFabricacao.getText(), tfdtValidade.getText(), pU));
+							Integer.parseInt(tfestoque.getText()), tffornecedor.getText(), Integer.parseInt(tflucro.getText()),
+							tfdtFabricacao.getText(), tfdtValidade.getText(), pU));
 			preencherAreaDeTexto();
+			ProdutoProcess.salvar();
 			limparCampos();
 		} else {
 			JOptionPane.showMessageDialog(this, "Favor preencher todos os campos.");
@@ -300,8 +301,8 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		create.setEnabled(true);
 		update.setEnabled(false);
 		delete.setEnabled(false);
-		codigoProduto.setText(String.format("%d", autoId));
-		ProdutoProcess.salvar();
+		tfcodigoProduto.setText(String.format("%d", autoId));
+		
 	}
 
 	// DELETE - CRUD
@@ -334,9 +335,9 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		}
 	}
 
-	public static void main(String[] agrs){
-//		ProdutoProcess.abrir();
-		ProdutoProcess.carregarTestes();
+	public static void main(String[] agrs) {
+		ProdutoProcess.abrir();
+//		ProdutoProcess.carregarTestes();
 		new ProdutoForm().setVisible(true);
 	}
 }

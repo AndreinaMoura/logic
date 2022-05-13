@@ -50,35 +50,22 @@ public class Produto {
 	}
 
 	// Construtor para receber dados do arquivo
-	public Produto(String linha) throws ParseException {
+	public Produto(String linha) {
 		df.setCurrency(Currency.getInstance(BRASIL));
 
 		this.codProduto = Integer.parseInt(linha.split(";")[0]);
-		this.estoque = Integer.parseInt(linha.split(";")[1]);
-		this.nomeProduto = linha.split(";")[2];
+		this.nomeProduto = linha.split(";")[1];
+		this.estoque = Integer.parseInt(linha.split(";")[2]);
 		this.fornecedor = linha.split(";")[3];
 		this.lucro = Integer.parseInt(linha.split(";")[4]);
 		try {
-			this.precoUnitario = Double.parseDouble(df.parse(linha.split(";")[5]).toString());
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			this.dtFabricacao = sdf.parse(linha.split(";")[5]);
+			this.dtValidade = sdf.parse(linha.split(";")[6]);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			this.dtFabricacao = sdf.parse(linha.split(";")[6]);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			this.dtValidade = sdf.parse(linha.split(";")[7]);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.precoUnitario = Double.parseDouble(linha.split(";")[7]);
 	}
 
 	// Getters && Setters
@@ -107,7 +94,7 @@ public class Produto {
 		this.estoque = estoque;
 	}
 
-	public float getLucro() {
+	public int getLucro() {
 		return lucro;
 	}
 
@@ -156,11 +143,12 @@ public class Produto {
 	}
 
 	public String getLucro(String s) {
-		return String.format("%d %%", lucro);
+		return String.format("%d", lucro);
 	}
 
 	public String getPrecoUnitario(String s) {
-		return String.format("R$ %.2f", precoUnitario);
+		df.setCurrency(Currency.getInstance(BRASIL));
+		return df.format(precoUnitario);
 	}
 
 	public String getDtFabricacao(String s) {
@@ -179,7 +167,8 @@ public class Produto {
 
 	public String valorTotal() {
 		double valor = (precoUnitario * (getLucro() / 100)) + precoUnitario;
-		return String.format("R$ %.2f", valor);
+		df.setCurrency(Currency.getInstance(BRASIL));
+		return df.format((valor));
 	}
 
 	public String status() {
@@ -189,18 +178,6 @@ public class Produto {
 		} else {
 			return "Adequado";
 		}
-	}
-
-	@Override
-	public String toString() {
-		return codProduto + "       " + nomeProduto + "\t" + estoque + "\t" + fornecedor + "\t" + "\t"
-				+ sdf.format(dtValidade) + "\t" + valorTotal() + "\t" + status() + "\n";
-	}
-
-	public String toCSV() {
-		return codProduto + ";" + nomeProduto + ";" + estoque + ";" + fornecedor + ";" + lucro + "%" + ";"
-				+ sdf.format(dtFabricacao) + ";" + sdf.format(dtValidade) + ";" + valorTotal() + ";"
-				+ String.format("R$ %.2f", precoUnitario);
 	}
 
 	// Define o "id" como campo Chave
@@ -216,4 +193,18 @@ public class Produto {
 		return codProduto == other.codProduto;
 	}
 
+	@Override
+	public String toString() {
+		return codProduto + "             " + nomeProduto + "\t" + estoque + "\t" + fornecedor + "\t" + "\t"
+				+ sdf.format(dtValidade) + "\t" + valorTotal() + "\t" + status() + "\n";
+	}
+
+	public String toCSV() {
+		return codProduto + ";" + nomeProduto + ";" + estoque + ";" + fornecedor + ";" + getLucro("s") + ";"
+				+ getDtFabricacao("s") + ";" + getDtValidade("s") + ";" + getPrecoUnitario("s") + "\n";
+	}
+
+	public String toVal() {
+		return valorTotal();
+	}
 }
