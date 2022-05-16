@@ -1,8 +1,9 @@
-package clients;
+package visao;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,67 +14,67 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import controllers.PetProcess;
-import controllers.ServicoProcess;
-import controllers.UsuarioProcess;
-import uteis.Cripto;
+import controle.ProdutoProcess;
+import controle.UsuarioProcessa;
+import uteis.Criptografia;
 
-public class LoginForm extends JFrame implements ActionListener {
-
+public class TelaLogin extends JFrame implements ActionListener{
+	
 	private static final long serialVersionUID = 1L;
-	// Atributos da tela de login
+	// Itens na tela de login 
 	private JPanel painel;
 	private JLabel rotulo1, rotulo2;
 	private JTextField tfLogin;
 	private JPasswordField senha;
 	private JButton login;
-	private String imgIco = "./assets/key.png";
-
-	LoginForm() {
-		// Propriedades B?sicas
+	private String imgIco = "";
+	
+	TelaLogin() {
 		setTitle("Tela de Login");
+		//logo
 		setIconImage(new ImageIcon(imgIco).getImage());
 		setBounds(600, 300, 360, 200);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		painel = new JPanel(); // Painel de elementos
+		painel = new JPanel();
 		painel.setBackground(new Color(255, 233, 213));
-		setContentPane(painel); // Configua o painel
+		setContentPane(painel);
 		setLayout(null);
-
-		// Conte?dos da tela
-		rotulo1 = new JLabel("Login:");
+		
+		//itens na tela
+		rotulo1 = new JLabel("Login");
 		rotulo1.setBounds(20, 20, 100, 20);
 		tfLogin = new JTextField();
 		tfLogin.setBounds(120, 20, 200, 30);
-		rotulo2 = new JLabel("Senha:");
+		rotulo2 = new JLabel ("Senha");
 		rotulo2.setBounds(20, 60, 100, 20);
 		senha = new JPasswordField();
 		senha.setEchoChar('*');
 		senha.setBounds(120, 60, 200, 30);
 		login = new JButton("Login");
 		login.setBounds(120, 100, 200, 30);
-
-		// Habilitando o evento de clicar no bot?o
+		
+		
 		login.addActionListener(this);
-
-		// Adicioar todos os elementos no painel
+		
+		//colocando itens no painel 
 		painel.add(rotulo1);
 		painel.add(tfLogin);
 		painel.add(rotulo2);
 		painel.add(senha);
 		painel.add(login);
 	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == login) {
 			if (tfLogin.getText().length() > 0 && new String(senha.getPassword()).length() > 0) {
-				int indice = UsuarioProcess.checarLogin(tfLogin.getText());
+				int indice = UsuarioProcessa.verificarLogin(tfLogin.getText());
 				if (indice != -1) {
-					if (UsuarioProcess.checarSenha(indice, Cripto.encripta(new String(senha.getPassword())))) {
-						this.dispose();// Fecha o Formul?rio
-						MenuForm mf = new MenuForm();
-						mf.setVisible(true);
+					if (UsuarioProcessa.checarSenha(indice, Criptografia.encripta(new String(senha.getPassword())))) {
+						this.dispose();
+						Menu pf = new Menu();
+						pf.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(this, "Acesso negado");
 					}
@@ -85,12 +86,10 @@ public class LoginForm extends JFrame implements ActionListener {
 			}
 		}
 	}
-
 	public static void main(String[] args) {
-		UsuarioProcess.abrir();
-		PetProcess.abrir();
-		ServicoProcess.abrir();
-		LoginForm login = new LoginForm();
+		UsuarioProcessa.abrir();
+		TelaLogin login = new TelaLogin();
 		login.setVisible(true);
 	}
 }
+
