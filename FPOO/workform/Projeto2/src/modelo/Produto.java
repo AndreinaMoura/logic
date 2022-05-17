@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
+import javax.swing.ImageIcon;
+
 public class Produto {
 
 	private int codProduto;
@@ -18,6 +20,7 @@ public class Produto {
 	private float precoUnitario;
 	private Date dtFabricacao;
 	private Date dtValidade;
+//	private ImageIcon icon;
 
 	private final Locale BRASIL = new Locale("pt", "BR");
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -71,7 +74,7 @@ public class Produto {
 	// Getters && Setters
 
 	public Produto(int parseInt, double parseDouble) {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public int getCodProduto() {

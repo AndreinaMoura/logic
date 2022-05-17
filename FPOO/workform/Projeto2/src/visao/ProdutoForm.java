@@ -1,8 +1,10 @@
 package visao;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Currency;
@@ -11,6 +13,7 @@ import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controle.ProdutoProcess;
 import modelo.Produto;
@@ -27,14 +31,18 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel painel;
 	private JLabel codigoProduto, estoque, nomeProduto, lucro, precoVenda, precoUnitario, dtFabricacao, dtValidade,
-			rotulos, fornecedor;
+			rotulos, fornecedor, imagem;
 	private JTextField tfcodigoProduto, tfestoque, tfnomeProduto, tflucro, tfprecoVenda, tfprecoUnitario,
 			tfdtFabricacao, tfdtValidade, tffornecedor;
 	private JScrollPane rolagem;
 	private JTextArea verResultados;
-	private JButton create, read, update, delete;
-	private String imgIco = "C:\\Users\\Desenvolvimento\\Desktop\\logic\\FPOO\\wk\\workspace\\Projeto\\assets\\cafe.jpg";
+	private JButton create, read, update, delete, carregar, btSalvar;
+	private String imgIco = ".\\assets\\cafe.jpg";
 	private int autoId = ProdutoProcess.produtos.size() + 1;
+	private ImageIcon img;
+	private Image image;
+	private Image newImg;
+	private File path;
 	private String texto = "";
 
 	private final Color C1 = Color.orange;
@@ -137,7 +145,8 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		tfdtValidade.setBackground(C2);
 		tfdtValidade.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-		rotulos = new JLabel("Cód           |          Nome         |     Estoque     |       Fornecedor       |   Vencimento  |        Preço       |         Status:");
+		rotulos = new JLabel(
+				"Cód           |          Nome         |     Estoque     |       Fornecedor       |   Vencimento  |        Preço       |         Status:");
 		rotulos.setBounds(20, 340, 900, 30);
 		painel.add(rotulos);
 		rotulos.setForeground(Color.black);
@@ -150,24 +159,33 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		rolagem.setBounds(20, 375, 740, 200);
 		painel.add(rolagem);
 
+		imagem = new JLabel();
+		imagem.setBounds(500, 130, 260, 200);
+		painel.add(imagem);
+		imagem.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+
 		create = new JButton("Cadastrar");
-		create.setBounds(650, 20, 110, 30);
+		create.setBounds(500, 20, 110, 30);
 		painel.add(create);
 
 		read = new JButton("Buscar");
-		read.setBounds(650, 55, 110, 30);
+		read.setBounds(500, 55, 110, 30);
 		painel.add(read);
 
 		update = new JButton("Atualizar");
-		update.setBounds(650, 90, 110, 30);
+		update.setBounds(650, 20, 110, 30);
 		update.setEnabled(false);
 		painel.add(update);
 
 		delete = new JButton("Excluir");
-		delete.setBounds(650, 125, 110, 30);
+		delete.setBounds(650, 55, 110, 30);
 
 		delete.setEnabled(false);
 		painel.add(delete);
+
+		carregar = new JButton("Carregar imagem");
+		carregar.setBounds(500, 90, 260, 30);
+		painel.add(carregar);
 
 		// Ouvir os eventos dos Botões, ComboBox e outros
 //		create.setBackground(C1);
@@ -179,6 +197,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		read.addActionListener(this);
 		update.addActionListener(this);
 		delete.addActionListener(this);
+		carregar.addActionListener(this);
 	}
 
 	// CREATE - CRUD
@@ -198,9 +217,9 @@ public class ProdutoForm extends JFrame implements ActionListener {
 				pU = 0;
 			}
 
-			ProdutoProcess.produtos.add(new Produto(autoId, tfnomeProduto.getText(), Integer.parseInt(tfestoque.getText()),
-					tffornecedor.getText(), Integer.parseInt(tflucro.getText()), tfdtFabricacao.getText(),
-					tfdtValidade.getText(), pU));
+			ProdutoProcess.produtos.add(new Produto(autoId, tfnomeProduto.getText(),
+					Integer.parseInt(tfestoque.getText()), tffornecedor.getText(), Integer.parseInt(tflucro.getText()),
+					tfdtFabricacao.getText(), tfdtValidade.getText(), pU));
 			autoId++;
 			ProdutoProcess.salvar();
 			preencherAreaDeTexto();
@@ -308,8 +327,8 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	// DELETE - CRUD
 	private void excluir() {
 		int id = Integer.parseInt(tfcodigoProduto.getText());
-		Produto pet = new Produto(id);
-		int indice = ProdutoProcess.produtos.indexOf(pet);
+		Produto prod = new Produto(id);
+		int indice = ProdutoProcess.produtos.indexOf(prod);
 		ProdutoProcess.produtos.remove(indice);
 		preencherAreaDeTexto();
 		limparCampos();
@@ -319,10 +338,24 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		tfcodigoProduto.setText(String.format("%d", autoId));
 		ProdutoProcess.salvar();
 	}
+
+	private void carregarImagem() {
+		JFileChooser fc = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagens tipo: png, jpg ou jpeg",
+				new String[] { "png", "jpg", "jpeg" });
+		fc.setFileFilter(filter);
+		if (fc.showOpenDialog(this) != 1) {
+			path = fc.getSelectedFile();
+			img = new ImageIcon(path.getAbsolutePath());
+			imagem.setIcon(new ImageIcon(img.getImage().getScaledInstance(300, 250, java.awt.Image.SCALE_SMOOTH)));
+		}
+	}
+
 	public void setModal(boolean b) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == create) {
 			cadastrar();
@@ -336,9 +369,27 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		if (e.getSource() == delete) {
 			excluir();
 		}
+		if (e.getSource() == carregar) {
+			carregarImagem();
+		}
+		if (btSalvar == e.getSource()) {
+//			int id = Integer.parseInt(tfcodigoProduto.getText());
+//			Produto prod = new Produto(id);
+//			int indice = ProdutoProcess.produtos.indexOf(prod);
+//			if (path != null) {
+//				if (ProdutoProcess.getPd().saveImg(prod, path)) {
+//					JOptionPane.showMessageDialog(this, "Alterada com sucesso.");
+//					this.dispose();
+//				}
+//			} else {
+//				dispose();
+//			}
+//		} else {
+//			this.dispose();
+		}
 	}
 
-	public static void main(String[] agrs){
+	public static void main(String[] agrs) {
 		ProdutoProcess.abrir();
 //		ProdutoProcess.carregarTestes();
 		new ProdutoForm().setVisible(true);

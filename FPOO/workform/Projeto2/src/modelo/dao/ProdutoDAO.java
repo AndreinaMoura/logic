@@ -55,4 +55,29 @@ public class ProdutoDAO {
 			System.out.println(e);
 		}
 	}
+	public boolean saveImg(Produto p, File imagem) {
+		boolean resultado = false;
+		// String extencaoArquivo =
+		// imagem.getPath().substring(imagem.getPath().lastIndexOf(".")+1,imagem.getPath().length());
+		String extencaoArquivo = "png";
+		String nomeImagem = "produto" + p.getCodProduto() + "." + extencaoArquivo;
+		File arquivoDeSaida = new File(caminhoImg + nomeImagem);
+		try {
+			bi = ImageIO.read(imagem);
+			ImageIO.write(bi, extencaoArquivo, arquivoDeSaida);
+			resultado = true;
+		} catch (IOException e) {
+			System.out.println("Erro ao enviar imagem para a pasta de destino: " + e);
+		}
+		return resultado;
+	}
+	public String getImgPath(Produto p) {
+		String imagem = caminhoImg + "produto" + p.getCodProduto() + ".png";
+		try {
+			br = new BufferedReader(new FileReader(imagem));
+			return ".\\imgs\\produto" + p.getCodProduto() + ".png";
+		} catch (FileNotFoundException e) {
+			return ".\\assets\\default.png";
+		}
+	}
 }

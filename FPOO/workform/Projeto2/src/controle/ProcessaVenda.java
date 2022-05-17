@@ -7,12 +7,12 @@ import modelo.Venda;
 public class ProcessaVenda {
 
 	public static int getAutoNumero() {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
 	public static String getCompras() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

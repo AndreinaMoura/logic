@@ -18,6 +18,13 @@ public class ProdutoProcess {
 		pd.escrever(produtos);
 	}
 
+	public static ProdutoDAO getPd() {
+		return pd;
+	}
+	public static void setPd(ProdutoDAO pd) {
+		ProdutoProcess.pd = pd;
+	}
+
 	
 //	public static void carregarTestes() {
 //		ProdutoProcess.produtos.add(new Produto(1,"Arroz",24,"L & M",5,"01/01/2022","08/05/2022",6.30));
