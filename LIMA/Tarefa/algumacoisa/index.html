@@ -13,10 +13,10 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-md-2 bg-primary">
+            <div class="col-12 col-lg-2 bg-primary">
                 <h1 class="text-sucess"></h1>
             </div>
-            <div class="col-12 col-md-8 bg-info">
+            <div class="col-12 col-lg-8 bg-info">
                 <label for="email" class="form-label">E-mail</label>
                 <input type="text" class="form-control" placeholder="Informe seu email">
                 <select class="form-select">
@@ -126,18 +126,19 @@
                     <div id="sla" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
                             <button type="button" data-bs-target="#sla" data-bs-slide-to="0"></button>
-                            <button type="button" data-bs-target="#sla" data-bs-slide-to="1" aria-current="true" class="active"></button>
-                            <button type="button" data-bs-target="#sla" data-bs-slide-to="2"></button> 
+                            <button type="button" data-bs-target="#sla" data-bs-slide-to="1" aria-current="true"
+                                class="active"></button>
+                            <button type="button" data-bs-target="#sla" data-bs-slide-to="2"></button>
                         </div>
                         <div class="carousel-inner">
                             <div class="carousel-item">
-                                <img class="d-block w-50" src="img/img1.jpg">
+                                <img class="d-block w-100" src="img/img1.jpg">
                             </div>
                             <div class="carousel-item active">
-                                <img class="d-block w-25" src="img/img2.jpg">
+                                <img class="d-block w-100" src="img/img2.jpg">
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-50" src="img/img3.jpg">
+                                <img class="d-block w-100" src="img/img3.jpg">
                             </div>
                         </div>
                         <button class="carousel-control-prev" data-bs-target="#sla" data-bs-slide="prev">
@@ -149,13 +150,60 @@
                             <span class="visually-hidden">Próximo</span>
                     </div>
                 </div>
+                <div class="card mt-4" style="width: 18rem">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Australian_cart.jpg/1200px-Australian_cart.jpg"
+                        alt="" class="card-img-top">
+                    <div class="card-body">
+                        <div class="card-title">Carroça executiva</div>
+                        <p class="card-text">Único dono, banco de couro, ar condicionado, suspensão hidráulica, cavalo
+                            de brinde e rodas crômaticas</p>
+                        <a href="#" class="btn btn-primary">Comprar</a>
+                    </div>
+                </div>
+
+                <button id="btnT" type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                    data-bs-target="#mtest">Mostrar Modal</button>
+
+                <div id="mtest" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="modal-title">Exemplo modal</div>
+                                <button class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Texto modelo modal</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                                <button type="button" class="btn btn-primary">Cadastrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="btntoast">Fechar</button>
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="toast" class="toast" aria-live="assertive">
+                        <div class="toast-header">
+                            <strong class="me-auto">Notificações</strong>
+                            <small>11 min</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
+                        </div>
+                        <div class="toast-body">
+                            <p>O texto da sua notificação!</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-12 col-md-2 bg-primary"></div>
+            <div class="col-12 col-lg-2 bg-primary">
+                <h1 class="text-sucess"></h1>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
+    <script src="index.js"></script>
 </body>
 
 </html>

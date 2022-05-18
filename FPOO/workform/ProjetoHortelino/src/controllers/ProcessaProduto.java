@@ -30,9 +30,9 @@ public class ProcessaProduto {
 
 	// Retorna apenas um produto a partir do código
 	public static Produto getProduto(int codigo) {
-		Produto produto = new Produto(codigo);
-		if (produtos.contains(produto)) {
-			return produtos.get(produtos.indexOf(produto));
+		Produto prod = new Produto(codigo);
+		if (produtos.contains(prod)) {
+			return produtos.get(produtos.indexOf(prod));
 		}
 		return null;
 	}

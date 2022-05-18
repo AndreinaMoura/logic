@@ -42,7 +42,6 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	private ImageIcon img;
 	private Image image;
 	private Image newImg;
-	private File path;
 	private String texto = "";
 
 	private final Color C1 = Color.orange;
@@ -99,7 +98,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		tffornecedor.setBackground(C2);
 		tffornecedor.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-		lucro = new JLabel("Lucro:");
+		lucro = new JLabel("Margem de lucro:");
 		lucro.setBounds(20, 165, 120, 30);
 		painel.add(lucro);
 		tflucro = new JTextField();
@@ -340,6 +339,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	}
 
 	private void carregarImagem() {
+		File path = null;
 		JFileChooser fc = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagens tipo: png, jpg ou jpeg",
 				new String[] { "png", "jpg", "jpeg" });
@@ -349,10 +349,19 @@ public class ProdutoForm extends JFrame implements ActionListener {
 			img = new ImageIcon(path.getAbsolutePath());
 			imagem.setIcon(new ImageIcon(img.getImage().getScaledInstance(300, 250, java.awt.Image.SCALE_SMOOTH)));
 		}
+		int id = Integer.parseInt(tfcodigoProduto.getText());
+		Produto prod = new Produto(id);
+		int indice = ProdutoProcess.produtos.indexOf(prod);
+		if (path != null) {
+			if (ProdutoProcess.getPd().saveImg(indice, path)) {
+				JOptionPane.showMessageDialog(this, "Alterada com sucesso.");
+			}
+		} else {
+			dispose();
+		}
 	}
 
 	public void setModal(boolean b) {
-		// TODO Auto-generated method stub
 
 	}
 
