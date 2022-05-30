@@ -29,6 +29,7 @@ import modelo.Produto;
 public class ProdutoForm extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
+	private static final File path;
 	private JPanel painel;
 	private JLabel codigoProduto, estoque, nomeProduto, lucro, precoVenda, precoUnitario, dtFabricacao, dtValidade,
 			rotulos, fornecedor, imagem;
@@ -351,9 +352,8 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		}
 		int id = Integer.parseInt(tfcodigoProduto.getText());
 		Produto prod = new Produto(id);
-		int indice = ProdutoProcess.produtos.indexOf(prod);
 		if (path != null) {
-			if (ProdutoProcess.getPd().saveImg(indice, path)) {
+			if (ProdutoProcess.getPd().saveImg(prod, path)) {
 				JOptionPane.showMessageDialog(this, "Alterada com sucesso.");
 			}
 		} else {
@@ -382,25 +382,24 @@ public class ProdutoForm extends JFrame implements ActionListener {
 			carregarImagem();
 		}
 		if (btSalvar == e.getSource()) {
-//			int id = Integer.parseInt(tfcodigoProduto.getText());
-//			Produto prod = new Produto(id);
-//			int indice = ProdutoProcess.produtos.indexOf(prod);
-//			if (path != null) {
-//				if (ProdutoProcess.getPd().saveImg(prod, path)) {
-//					JOptionPane.showMessageDialog(this, "Alterada com sucesso.");
-//					this.dispose();
-//				}
-//			} else {
-//				dispose();
-//			}
-//		} else {
-//			this.dispose();
+			int id = Integer.parseInt(tfcodigoProduto.getText());
+			Produto prod = new Produto(id);
+			int indice = ProdutoProcess.produtos.indexOf(prod);
+			if (path != null) {
+				if (ProdutoProcess.getPd().saveImg(prod, path)) {
+					JOptionPane.showMessageDialog(this, "Alterada com sucesso.");
+					this.dispose();
+				}
+			} else {
+				dispose();
+			}
+		} else {
+			this.dispose();
 		}
 	}
 
 	public static void main(String[] agrs) {
 		ProdutoProcess.abrir();
-//		ProdutoProcess.carregarTestes();
 		new ProdutoForm().setVisible(true);
 	}
 }
