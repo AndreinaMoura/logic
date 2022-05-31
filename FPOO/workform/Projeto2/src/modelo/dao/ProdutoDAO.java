@@ -71,6 +71,7 @@ public class ProdutoDAO {
 		}
 		return resultado;
 	}
+
 	public String getImgPath(Produto p) {
 		String imagem = caminhoImg + "produto" + p.getCodProduto() + ".png";
 		try {

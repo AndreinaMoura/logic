@@ -20,7 +20,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import controle.ProcessaVenda;
-import controle.ProdutoProcess;
 import controle.ProcessaProduto;
 import modelo.Venda;
 import modelo.Produto;
@@ -88,7 +87,7 @@ public class VendasForm extends JDialog implements ActionListener {
 		
 		//Imagem do produto
 		produto = ProcessaProduto.getProduto(Integer.parseInt(cbProduto.getSelectedItem().toString().split("")[0]));
-		img = new ImageIcon(ProdutoProcess.getPd().getImgPath(produto));
+		img = new ImageIcon(ProcessaProduto.getPd().getImgPath(produto));
 		image = img.getImage();
 		newImg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
 		img = new ImageIcon(newImg);
@@ -103,6 +102,20 @@ public class VendasForm extends JDialog implements ActionListener {
 		panel.add(btAdd);
 		btAdd.addActionListener(this);
 
+		// Tabela de Professores (READ, UPDATE)
+		tableModel = new DefaultTableModel();
+		tableModel.addColumn("Número");
+		tableModel.addColumn("Data");
+		tableModel.addColumn("Hora");
+		tableModel.addColumn("Produto");
+		tableModel.addColumn("Preço");
+		tableModel.addColumn("Quantidade");
+		tableModel.addColumn("Subtotal");
+		if (!ProcessaVenda.getCompras().isEmpty()) {
+			for (Venda c : ProcessaVenda.getCompras()) {
+				tableModel.addRow(c.getStringVetor());
+			}
+		}
 		table = new JTable(tableModel);
 		scroll = new JScrollPane(table);
 		scroll.setBounds(10, 100, 659, 230);
@@ -141,7 +154,7 @@ public class VendasForm extends JDialog implements ActionListener {
 	
 	private void alternaImagem() {
 		produto = ProcessaProduto.getProduto(Integer.parseInt(cbProduto.getSelectedItem().toString().split("")[0]));
-		img = new ImageIcon(ProdutoProcess.getPd().getImgPath(produto));
+		img = new ImageIcon(ProcessaProduto.getPd().getImgPath(produto));
 		image = img.getImage();
 		newImg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
 		img = new ImageIcon(newImg);
@@ -205,4 +218,5 @@ public class VendasForm extends JDialog implements ActionListener {
 			alternaImagem();
 		}
 	}
+
 }

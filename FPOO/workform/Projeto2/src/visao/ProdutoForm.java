@@ -29,7 +29,7 @@ import modelo.Produto;
 public class ProdutoForm extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private static final File path;
+	private static final File path = null;
 	private JPanel painel;
 	private JLabel codigoProduto, estoque, nomeProduto, lucro, precoVenda, precoUnitario, dtFabricacao, dtValidade,
 			rotulos, fornecedor, imagem;
@@ -276,7 +276,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 				tfprecoUnitario.setText(ProdutoProcess.produtos.get(indice).getPrecoUnitario("s"));
 				tfdtFabricacao.setText(ProdutoProcess.produtos.get(indice).getDtFabricacao("s"));
 				tfdtValidade.setText(ProdutoProcess.produtos.get(indice).getDtValidade("s"));
-				tfprecoVenda.setText(ProdutoProcess.produtos.get(indice).valorTotal());
+				tfprecoVenda.setText(ProdutoProcess.produtos.get(indice).valorTotal("s"));
 				create.setEnabled(false);
 				update.setEnabled(true);
 				delete.setEnabled(true);
