@@ -41,8 +41,6 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	private String imgIco = ".\\assets\\cafe.jpg";
 	private int autoId = ProdutoProcess.produtos.size() + 1;
 	private ImageIcon img;
-	private Image image;
-	private Image newImg;
 	private String texto = "";
 
 	private final Color C1 = Color.orange;
@@ -56,7 +54,6 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		setBounds(100, 100, 800, 650);
 		setIconImage(new ImageIcon(imgIco).getImage());
 		painel = new JPanel();
-		// cor de fundo
 		painel.setBackground(new Color(153, 204, 255));
 		setContentPane(painel);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -167,47 +164,43 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		create = new JButton("Cadastrar");
 		create.setBounds(500, 20, 110, 30);
 		painel.add(create);
+		create.addActionListener(this);
 
 		read = new JButton("Buscar");
 		read.setBounds(500, 55, 110, 30);
 		painel.add(read);
+		read.addActionListener(this);
 
 		update = new JButton("Atualizar");
 		update.setBounds(650, 20, 110, 30);
 		update.setEnabled(false);
 		painel.add(update);
+		update.addActionListener(this);
 
 		delete = new JButton("Excluir");
 		delete.setBounds(650, 55, 110, 30);
-
 		delete.setEnabled(false);
 		painel.add(delete);
+		delete.addActionListener(this);
 
 		carregar = new JButton("Carregar imagem");
 		carregar.setBounds(500, 90, 260, 30);
 		painel.add(carregar);
+		carregar.addActionListener(this);
 
-		// Ouvir os eventos dos Botões, ComboBox e outros
 //		create.setBackground(C1);
 //		read.setBackground(C1);
 //		update.setBackground(C1);
 //		delete.setBackground(C1);
-
-		create.addActionListener(this);
-		read.addActionListener(this);
-		update.addActionListener(this);
-		delete.addActionListener(this);
-		carregar.addActionListener(this);
+	
 	}
 
-	// CREATE - CRUD
 	private void cadastrar() {
 		if (tfcodigoProduto.getText().length() != 0 && tfestoque.getText().length() != 0
 				&& tfnomeProduto.getText().length() != 0 && tffornecedor.getText().length() != 0
 				&& tflucro.getText().length() != 0 && tfprecoUnitario.getText().length() != 0
 				&& tfdtFabricacao.getText().length() != 0 && tfdtValidade.getText().length() != 0) {
 
-			// Converter o peso no formato Brasileiro usando virgula como decimal
 			df.setCurrency(Currency.getInstance(BRASIL));
 			float pU;
 			try {
@@ -249,7 +242,6 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		verResultados.setText(texto);
 	}
 
-	// READ - CRUD
 	private void buscar() {
 		String entrada = JOptionPane.showInputDialog(this, "Digite o código do produto:");
 
@@ -288,7 +280,6 @@ public class ProdutoForm extends JFrame implements ActionListener {
 
 	}
 
-	// UPDATE - CRUD
 	private void alterar() {
 		int id = Integer.parseInt(tfcodigoProduto.getText());
 		Produto prod = new Produto(id);
@@ -298,7 +289,6 @@ public class ProdutoForm extends JFrame implements ActionListener {
 				&& tflucro.getText().length() != 0 && tfprecoUnitario.getText().length() != 0
 				&& tfdtFabricacao.getText().length() != 0 && tfdtValidade.getText().length() != 0) {
 
-			// Converter o peso no formato Brasileiro usando virgula como decimal
 			df.setCurrency(Currency.getInstance(BRASIL));
 			float pU;
 			try {
@@ -324,7 +314,6 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		ProdutoProcess.salvar();
 	}
 
-	// DELETE - CRUD
 	private void excluir() {
 		int id = Integer.parseInt(tfcodigoProduto.getText());
 		Produto prod = new Produto(id);
@@ -356,15 +345,8 @@ public class ProdutoForm extends JFrame implements ActionListener {
 			if (ProdutoProcess.getPd().saveImg(prod, path)) {
 				JOptionPane.showMessageDialog(this, "Alterada com sucesso.");
 			}
-		} else {
-			dispose();
 		}
 	}
-
-	public void setModal(boolean b) {
-
-	}
-
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == create) {
 			cadastrar();
@@ -384,7 +366,6 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		if (btSalvar == e.getSource()) {
 			int id = Integer.parseInt(tfcodigoProduto.getText());
 			Produto prod = new Produto(id);
-			int indice = ProdutoProcess.produtos.indexOf(prod);
 			if (path != null) {
 				if (ProdutoProcess.getPd().saveImg(prod, path)) {
 					JOptionPane.showMessageDialog(this, "Alterada com sucesso.");
@@ -401,5 +382,8 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	public static void main(String[] agrs) {
 		ProdutoProcess.abrir();
 		new ProdutoForm().setVisible(true);
+	}
+
+	public void setModal(boolean b) {
 	}
 }
