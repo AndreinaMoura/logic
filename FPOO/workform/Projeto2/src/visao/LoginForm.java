@@ -18,7 +18,7 @@ import controle.ProdutoProcess;
 import controle.UsuarioProcessa;
 import uteis.Criptografia;
 
-public class TelaLogin extends JFrame implements ActionListener{
+public class LoginForm extends JFrame implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
 	// Itens na tela de login 
@@ -29,7 +29,7 @@ public class TelaLogin extends JFrame implements ActionListener{
 	private JButton login;
 	private String imgIco = "";
 	
-	TelaLogin() {
+	LoginForm() {
 		setTitle("Tela de Login");
 		//logo
 		setIconImage(new ImageIcon(imgIco).getImage());
@@ -73,7 +73,7 @@ public class TelaLogin extends JFrame implements ActionListener{
 				if (indice != -1) {
 					if (UsuarioProcessa.checarSenha(indice, Criptografia.encripta(new String(senha.getPassword())))) {
 						this.dispose();
-						Menu pf = new Menu();
+						TelaPrincipal pf = new TelaPrincipal();
 						pf.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(this, "Acesso negado");
@@ -88,8 +88,14 @@ public class TelaLogin extends JFrame implements ActionListener{
 	}
 	public static void main(String[] args) {
 		UsuarioProcessa.abrir();
-		TelaLogin login = new TelaLogin();
+		LoginForm login = new LoginForm();
 		login.setVisible(true);
+	}
+
+
+	public void setModal(boolean b) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

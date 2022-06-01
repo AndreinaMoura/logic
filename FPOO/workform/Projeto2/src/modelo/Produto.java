@@ -10,6 +10,8 @@ import java.util.Objects;
 
 import javax.swing.ImageIcon;
 
+import modelo.dao.ProdutoDAO;
+
 public class Produto {
 
 	private int codProduto;
@@ -20,7 +22,7 @@ public class Produto {
 	private float precoUnitario;
 	private Date dtFabricacao;
 	private Date dtValidade;
-//	private ImageIcon icon;
+	Produto prod;
 
 	private final Locale BRASIL = new Locale("pt", "BR");
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -212,6 +214,16 @@ public class Produto {
 		}
 	}
 
+//	public String getImagem() {
+//	String aa = null;
+//	try {
+//		aa = ProdutoDAO.getImgPath(prod);
+//	} catch (Exception e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+//	return aa;
+//	}
 	public double getSubtotal() {
 		return this.valorTotal() * this.estoque;
 	}
