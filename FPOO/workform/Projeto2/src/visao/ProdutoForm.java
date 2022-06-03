@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import controle.OrcamentoProcess;
 import modelo.Produto;
@@ -28,6 +29,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel painel;
+	private DefaultTableModel tableModel;
 	private JLabel codigoProduto, estoque, nomeProduto, lucro, precoVenda, precoUnitario, dtFabricacao, dtValidade,
 			rotulos, fornecedor, lbImagem;
 	private JTextField tfcodigoProduto, tfestoque, tfnomeProduto, tflucro, tfprecoVenda, tfprecoUnitario,
