@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import controle.ProdutoProcess;
+import controle.OrcamentoProcess;
 import controle.ProcessaProduto;
 import modelo.Produto;
 
@@ -92,7 +92,7 @@ public class CadastrarImagem extends JDialog implements ActionListener {
 			}
 		} else if (btSalvar == e.getSource()) {
 			if (arquivo != null) {
-				if (ProdutoProcess.getPd().saveImg(prod, arquivo)) {
+				if (OrcamentoProcess.getPd().saveImg(prod, arquivo)) {
 					JOptionPane.showMessageDialog(this, "Alterada com sucesso.");
 					this.dispose();
 				}

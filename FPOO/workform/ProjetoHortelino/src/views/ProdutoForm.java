@@ -17,7 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import controllers.ProcessaProduto;
+import controllers.OrcamentoProduto;
 import models.Produto;
 
 public class ProdutoForm extends JDialog implements ActionListener {
@@ -50,7 +50,7 @@ public class ProdutoForm extends JDialog implements ActionListener {
 		panel = new JPanel();
 		setContentPane(panel);
 		setLayout(null);
-		codigo = ProcessaProduto.getAutoCodigo();
+		codigo = OrcamentoProduto.getAutoCodigo();
 		
 		// Label e TextFiels para Cadastro
 		lbCabecalho.setBounds(10, 10, 580, 20);
@@ -82,8 +82,8 @@ public class ProdutoForm extends JDialog implements ActionListener {
 		tableModel.addColumn("Preço");
 		tableModel.addColumn("Quantidade");
 		tableModel.addColumn("Subtotal");
-		if (!ProcessaProduto.getProdutos().isEmpty()) {
-			for (Produto p : ProcessaProduto.getProdutos()) {
+		if (!OrcamentoProduto.getProdutos().isEmpty()) {
+			for (Produto p : OrcamentoProduto.getProdutos()) {
 				tableModel.addRow(p.getStringVetor());
 			}
 		}
@@ -104,8 +104,8 @@ public class ProdutoForm extends JDialog implements ActionListener {
 		});
 		
 		//Totais
-		tfTotalItens.setText(String.format("%d",ProcessaProduto.getTotalItens()));
-		tfTotalDinheiro.setText(String.format("%.2f", ProcessaProduto.getTotalDinheiro()));
+		tfTotalItens.setText(String.format("%d",OrcamentoProduto.getTotalItens()));
+		tfTotalDinheiro.setText(String.format("%.2f", OrcamentoProduto.getTotalDinheiro()));
 		lbTotalItens.setBounds(10,330,80,30);
 		tfTotalItens.setBounds(90,335,50,25);
 		lbTotalDinheiro.setBounds(140,330,70,30);
@@ -154,8 +154,8 @@ public class ProdutoForm extends JDialog implements ActionListener {
 				tfDescricao.setText("");
 				tfPreco.setText("");
 				tfQuantidade.setText("");
-				tfTotalItens.setText(String.format("%d",ProcessaProduto.getTotalItens()));
-				tfTotalDinheiro.setText(String.format("%.2f", ProcessaProduto.getTotalDinheiro()));
+				tfTotalItens.setText(String.format("%d",OrcamentoProduto.getTotalItens()));
+				tfTotalDinheiro.setText(String.format("%.2f", OrcamentoProduto.getTotalDinheiro()));
 			}
 
 		} else if (e.getSource() == btDel) {
@@ -179,7 +179,7 @@ public class ProdutoForm extends JDialog implements ActionListener {
 				produto.setQuantidade(Integer.parseInt((String) tableModel.getValueAt(i, 4)));
 				produtos.add(produto);
 			}
-			ProcessaProduto.setProdutos(produtos);
+			OrcamentoProduto.setProdutos(produtos);
 			dispose();
 		}
 	}

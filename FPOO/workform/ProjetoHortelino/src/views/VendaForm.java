@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.ProcessaVenda;
-import controllers.ProcessaProduto;
+import controllers.OrcamentoProduto;
 import models.Venda;
 import models.Produto;
 
@@ -70,7 +70,7 @@ public class VendaForm extends JDialog implements ActionListener {
 		tfHora.setBounds(140, 70, 80, 25);
 		cbProduto.setBounds(220, 70, 210, 25);
 		tfQuantidade.setBounds(430, 70, 70, 25);
-		for (Produto p : ProcessaProduto.getProdutos()) {
+		for (Produto p : OrcamentoProduto.getProdutos()) {
 			cbProduto.addItem(p.getCodigo() + " " + p.getNome() + " " + p.getPreco());
 		}
 		cbProduto.addActionListener(this);
@@ -86,8 +86,8 @@ public class VendaForm extends JDialog implements ActionListener {
 		panel.add(tfQuantidade);
 		
 		//Imagem do produto
-		produto = ProcessaProduto.getProduto(Integer.parseInt(cbProduto.getSelectedItem().toString().split("")[0]));
-		img = new ImageIcon(ProcessaProduto.getPd().getImgPath(produto));
+		produto = OrcamentoProduto.getProduto(Integer.parseInt(cbProduto.getSelectedItem().toString().split("")[0]));
+		img = new ImageIcon(OrcamentoProduto.getPd().getImgPath(produto));
 		image = img.getImage();
 		newImg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
 		img = new ImageIcon(newImg);
@@ -153,8 +153,8 @@ public class VendaForm extends JDialog implements ActionListener {
 	}
 	
 	private void alternaImagem() {
-		produto = ProcessaProduto.getProduto(Integer.parseInt(cbProduto.getSelectedItem().toString().split("")[0]));
-		img = new ImageIcon(ProcessaProduto.getPd().getImgPath(produto));
+		produto = OrcamentoProduto.getProduto(Integer.parseInt(cbProduto.getSelectedItem().toString().split("")[0]));
+		img = new ImageIcon(OrcamentoProduto.getPd().getImgPath(produto));
 		image = img.getImage();
 		newImg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
 		img = new ImageIcon(newImg);
@@ -172,8 +172,8 @@ public class VendaForm extends JDialog implements ActionListener {
 				compra.setHora(tfHora.getText());
 				compra.setQuantidade(Integer.parseInt(tfQuantidade.getText()));
 				// Pega os dados do produto na ComboBox e Da baixa no estoque
-				produto = ProcessaProduto.getProdutos().get(cbProduto.getSelectedIndex());
-				if (ProcessaProduto.getProdutos().get(cbProduto.getSelectedIndex()).darBaixa(compra.getQuantidade())) {
+				produto = OrcamentoProduto.getProdutos().get(cbProduto.getSelectedIndex());
+				if (OrcamentoProduto.getProdutos().get(cbProduto.getSelectedIndex()).darBaixa(compra.getQuantidade())) {
 					compra.setProduto(produto);
 					tableModel.addRow(compra.getStringVetor());
 					// Limpa/atualiza os campos
@@ -184,7 +184,7 @@ public class VendaForm extends JDialog implements ActionListener {
 					tfQuantidade.setText("");
 					tfTotalItens.setText(String.format("%d",ProcessaVenda.getTotalItens()));
 					tfTotalDinheiro.setText(String.format("%.2f", ProcessaVenda.getTotalDinheiro()));
-					ProcessaProduto.setProdutos(ProcessaProduto.getProdutos());
+					OrcamentoProduto.setProdutos(OrcamentoProduto.getProdutos());
 				} else {
 					JOptionPane.showMessageDialog(null, "Quantidade insuficiente no estoque");
 				}

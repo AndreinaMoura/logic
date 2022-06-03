@@ -20,7 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import controle.ProdutoProcess;
+import controle.OrcamentoProcess;
 import modelo.Produto;
 import modelo.dao.ProdutoDAO;
 
@@ -36,7 +36,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	private JTextArea verResultados;
 	private JButton create, read, update, delete, addImg;
 	private String imgIco = ".\\assets\\cafe.jpg";
-	private int autoId = ProdutoProcess.produtos.size() + 1;
+	private int autoId = OrcamentoProcess.produtos.size() + 1;
 	private String texto = "";
 	Produto prod;
 
@@ -201,11 +201,11 @@ public class ProdutoForm extends JFrame implements ActionListener {
 				pU = 0;
 			}
 
-			ProdutoProcess.produtos.add(new Produto(autoId, tfnomeProduto.getText(),
+			OrcamentoProcess.produtos.add(new Produto(autoId, tfnomeProduto.getText(),
 					Integer.parseInt(tfestoque.getText()), tffornecedor.getText(), Integer.parseInt(tflucro.getText()),
 					tfdtFabricacao.getText(), tfdtValidade.getText(), pU));
 			autoId++;
-			ProdutoProcess.salvar();
+			OrcamentoProcess.salvar();
 			preencherAreaDeTexto();
 			limparCampos();
 		} else {
@@ -227,7 +227,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 
 	private void preencherAreaDeTexto() {
 		texto = ""; // Limpar a área de texto antes de preenher
-		for (Produto p : ProdutoProcess.produtos) {
+		for (Produto p : OrcamentoProcess.produtos) {
 			texto += p.toString();
 		}
 		verResultados.setText(texto);
@@ -249,23 +249,23 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		if (isNumeric) {
 			int id = Integer.parseInt(entrada);
 			Produto prod = new Produto(id);
-			if (ProdutoProcess.produtos.contains(prod)) {
-				int indice = ProdutoProcess.produtos.indexOf(prod);
-				tfcodigoProduto.setText(ProdutoProcess.produtos.get(indice).getCodProduto("s"));
-				tfestoque.setText(ProdutoProcess.produtos.get(indice).getEstoque("s"));
-				tfnomeProduto.setText(ProdutoProcess.produtos.get(indice).getNomeProduto());
-				tffornecedor.setText(ProdutoProcess.produtos.get(indice).getFornecedor());
-				tflucro.setText(ProdutoProcess.produtos.get(indice).getLucro("s"));
-				tfprecoUnitario.setText(ProdutoProcess.produtos.get(indice).getPrecoUnitario("s"));
-				tfdtFabricacao.setText(ProdutoProcess.produtos.get(indice).getDtFabricacao("s"));
-				tfdtValidade.setText(ProdutoProcess.produtos.get(indice).getDtValidade("s"));
-				tfprecoVenda.setText(ProdutoProcess.produtos.get(indice).valorTotal("s"));
+			if (OrcamentoProcess.produtos.contains(prod)) {
+				int indice = OrcamentoProcess.produtos.indexOf(prod);
+				tfcodigoProduto.setText(OrcamentoProcess.produtos.get(indice).getCodProduto("s"));
+				tfestoque.setText(OrcamentoProcess.produtos.get(indice).getEstoque("s"));
+				tfnomeProduto.setText(OrcamentoProcess.produtos.get(indice).getNomeProduto());
+				tffornecedor.setText(OrcamentoProcess.produtos.get(indice).getFornecedor());
+				tflucro.setText(OrcamentoProcess.produtos.get(indice).getLucro("s"));
+				tfprecoUnitario.setText(OrcamentoProcess.produtos.get(indice).getPrecoUnitario("s"));
+				tfdtFabricacao.setText(OrcamentoProcess.produtos.get(indice).getDtFabricacao("s"));
+				tfdtValidade.setText(OrcamentoProcess.produtos.get(indice).getDtValidade("s"));
+				tfprecoVenda.setText(OrcamentoProcess.produtos.get(indice).valorTotal("s"));
 				lbImagem.setText(ProdutoDAO.getImgPath(prod));
 				create.setEnabled(false);
 				update.setEnabled(true);
 				delete.setEnabled(true);
 				addImg.setEnabled(true);
-				ProdutoProcess.salvar();
+				OrcamentoProcess.salvar();
 			} else {
 				JOptionPane.showMessageDialog(this, "Produto não encontrado");
 			}
@@ -276,7 +276,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	private void alterar() {
 		int id = Integer.parseInt(tfcodigoProduto.getText());
 		Produto prod = new Produto(id);
-		int indice = ProdutoProcess.produtos.indexOf(prod);
+		int indice = OrcamentoProcess.produtos.indexOf(prod);
 		if (tfcodigoProduto.getText().length() != 0 && tfestoque.getText().length() != 0
 				&& tfnomeProduto.getText().length() != 0 && tffornecedor.getText().length() != 0
 				&& tflucro.getText().length() != 0 && tfprecoUnitario.getText().length() != 0
@@ -291,7 +291,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 				pU = 0;
 			}
 
-			ProdutoProcess.produtos.set(indice,
+			OrcamentoProcess.produtos.set(indice,
 					new Produto(Integer.parseInt(tfcodigoProduto.getText()), tfnomeProduto.getText(),
 							Integer.parseInt(tfestoque.getText()), tffornecedor.getText(),
 							Integer.parseInt(tflucro.getText()), tfdtFabricacao.getText(), tfdtValidade.getText(), pU));
@@ -304,21 +304,21 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		update.setEnabled(false);
 		delete.setEnabled(false);
 		tfcodigoProduto.setText(String.format("%d", autoId));
-		ProdutoProcess.salvar();
+		OrcamentoProcess.salvar();
 	}
 
 	private void excluir() {
 		int id = Integer.parseInt(tfcodigoProduto.getText());
 		Produto prod = new Produto(id);
-		int indice = ProdutoProcess.produtos.indexOf(prod);
-		ProdutoProcess.produtos.remove(indice);
+		int indice = OrcamentoProcess.produtos.indexOf(prod);
+		OrcamentoProcess.produtos.remove(indice);
 		preencherAreaDeTexto();
 		limparCampos();
 		create.setEnabled(true);
 		update.setEnabled(false);
 		delete.setEnabled(false);
 		tfcodigoProduto.setText(String.format("%d", autoId));
-		ProdutoProcess.salvar();
+		OrcamentoProcess.salvar();
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -337,7 +337,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		if (e.getSource() == addImg) {
 			int id = Integer.parseInt(tfcodigoProduto.getText());
 			Produto prod = new Produto(id);
-			int indice = ProdutoProcess.produtos.indexOf(prod);
+			int indice = OrcamentoProcess.produtos.indexOf(prod);
 			CadastrarImagem CI = new CadastrarImagem(indice);
 			CI.setModal(true);
 			CI.setVisible(true);
@@ -348,7 +348,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] agrs) {
-		ProdutoProcess.abrir();
+		OrcamentoProcess.abrir();
 		new ProdutoForm().setVisible(true);
 	}
 }

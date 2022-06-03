@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import models.Produto;
 import models.dao.ProdutoDAO;
 
-public class ProcessaProduto {
+public class OrcamentoProduto {
 
 	private static ProdutoDAO pd = new ProdutoDAO();
 	private static ArrayList<Produto> produtos = pd.open();
@@ -16,7 +16,7 @@ public class ProcessaProduto {
 	}
 
 	public static void setProdutos(ArrayList<Produto> produtos) {
-		ProcessaProduto.produtos = produtos;
+		OrcamentoProduto.produtos = produtos;
 		pd.save(produtos);
 	}
 
@@ -25,7 +25,7 @@ public class ProcessaProduto {
 	}
 
 	public static void setPd(ProdutoDAO pd) {
-		ProcessaProduto.pd = pd;
+		OrcamentoProduto.pd = pd;
 	}
 
 	// Retorna apenas um produto a partir do código
@@ -39,10 +39,10 @@ public class ProcessaProduto {
 
 	// Retorna o código do produto adicionando 1 ao ultimo codigo da lista
 	public static int getAutoCodigo() {
-		if (ProcessaProduto.produtos.isEmpty())
+		if (OrcamentoProduto.produtos.isEmpty())
 			return 1;
 		else
-			return ProcessaProduto.produtos.get(ProcessaProduto.produtos.size() - 1).getCodigo() + 1;
+			return OrcamentoProduto.produtos.get(OrcamentoProduto.produtos.size() - 1).getCodigo() + 1;
 	}
 
 	public static int getTotalItens() {

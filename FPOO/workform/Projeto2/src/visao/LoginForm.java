@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import controle.ProdutoProcess;
+import controle.OrcamentoProcess;
 import controle.UsuarioProcessa;
 import uteis.Criptografia;
 

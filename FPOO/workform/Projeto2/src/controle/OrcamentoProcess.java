@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import modelo.Produto;
 import modelo.dao.ProdutoDAO;
 
-public class ProdutoProcess {
+public class OrcamentoProcess {
 
 	public static ArrayList<Produto> produtos = new ArrayList<>();
 	private static ProdutoDAO pd = new ProdutoDAO();
@@ -22,6 +22,6 @@ public class ProdutoProcess {
 		return pd;
 	}
 	public static void setPd(ProdutoDAO pd) {
-		ProdutoProcess.pd = pd;
+		OrcamentoProcess.pd = pd;
 	}
 }

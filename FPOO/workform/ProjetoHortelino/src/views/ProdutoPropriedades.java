@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import controllers.ProcessaProduto;
+import controllers.OrcamentoProduto;
 import models.Produto;
 
 public class ProdutoPropriedades extends JDialog implements ActionListener {
@@ -40,8 +40,8 @@ public class ProdutoPropriedades extends JDialog implements ActionListener {
 		setLayout(null);
 
 		// Pega e exibe os dados do Produto
-		produto = ProcessaProduto.getProduto(Integer.parseInt(cod));		
-		img = new ImageIcon(ProcessaProduto.getPd().getImgPath(produto));
+		produto = OrcamentoProduto.getProduto(Integer.parseInt(cod));		
+		img = new ImageIcon(OrcamentoProduto.getPd().getImgPath(produto));
 		image = img.getImage();
 		newImg = image.getScaledInstance(300, 250, java.awt.Image.SCALE_SMOOTH);
 		lbId = new JLabel("Código do Produto: \t" + String.format("%d", produto.getCodigo()));
@@ -103,7 +103,7 @@ public class ProdutoPropriedades extends JDialog implements ActionListener {
 			}
 		} else if (btSalvar == e.getSource()) {
 			if (arquivo != null) {
-				if (ProcessaProduto.getPd().saveImg(produto, arquivo)) {
+				if (OrcamentoProduto.getPd().saveImg(produto, arquivo)) {
 					JOptionPane.showMessageDialog(this, "Alterada com sucesso.");
 					this.dispose();
 				}
