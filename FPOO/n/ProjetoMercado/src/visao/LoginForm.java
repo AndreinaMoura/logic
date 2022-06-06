@@ -1,7 +1,6 @@
 package visao;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -15,10 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import controle.OrcamentoProcess;
 import controle.UsuarioProcessa;
 import uteis.Criptografia;
 
-public class TelaLogin extends JFrame implements ActionListener{
+public class LoginForm extends JFrame implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
 	// Itens na tela de login 
@@ -31,7 +31,7 @@ public class TelaLogin extends JFrame implements ActionListener{
 	private String [] fundo = {".\\assets\\fundo.png"};
 	private ImageIcon icon;
 	
-	TelaLogin() {
+	LoginForm() {
 		setTitle("Tela de Login");
 		setBounds(100, 100, 600, 420);
 		//logo
@@ -96,7 +96,7 @@ public class TelaLogin extends JFrame implements ActionListener{
 				if (indice != -1) {
 					if (UsuarioProcessa.checarSenha(indice, Criptografia.encripta(new String(senha.getPassword())))) {
 						this.dispose();
-						Menu pf = new Menu();
+						TelaPrincipal pf = new TelaPrincipal();
 						pf.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(this, "Acesso negado");
@@ -111,8 +111,14 @@ public class TelaLogin extends JFrame implements ActionListener{
 	}
 	public static void main(String[] args) {
 		UsuarioProcessa.abrir();
-		TelaLogin login = new TelaLogin();
+		LoginForm login = new LoginForm();
 		login.setVisible(true);
+	}
+
+
+	public void setModal(boolean b) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
