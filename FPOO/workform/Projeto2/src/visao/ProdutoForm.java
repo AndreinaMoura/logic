@@ -22,8 +22,8 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import controle.OrcamentoProcess;
+import dao.ProdutoDAO;
 import modelo.Produto;
-import modelo.dao.ProdutoDAO;
 
 public class ProdutoForm extends JFrame implements ActionListener {
 
@@ -347,10 +347,5 @@ public class ProdutoForm extends JFrame implements ActionListener {
 	}
 
 	public void setModal(boolean b) {
-	}
-
-	public static void main(String[] agrs) {
-		OrcamentoProcess.abrir();
-		new ProdutoForm().setVisible(true);
 	}
 }

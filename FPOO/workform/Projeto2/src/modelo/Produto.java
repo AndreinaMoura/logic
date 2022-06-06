@@ -10,7 +10,7 @@ import java.util.Objects;
 
 import javax.swing.ImageIcon;
 
-import modelo.dao.ProdutoDAO;
+import dao.ProdutoDAO;
 
 public class Produto {
 

@@ -23,7 +23,7 @@ public class CadastrarImagem extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JButton btImagem, btCancelar, btSalvar;
-	private JLabel lbId, lbNome,lbImagem;
+	private JLabel lbId, lbNome, lbImagem;
 	private ImageIcon img;
 	private Image image;
 	private Image newImg;
@@ -41,7 +41,7 @@ public class CadastrarImagem extends JDialog implements ActionListener {
 		setLayout(null);
 
 		// Pega e exibe os dados do Produto
-		prod = ProcessaProduto.getProduto(indice);		
+		prod = ProcessaProduto.getProduto(indice);
 		img = new ImageIcon(ProcessaProduto.getPd().getImgPath(prod));
 		image = img.getImage();
 		newImg = image.getScaledInstance(300, 250, java.awt.Image.SCALE_SMOOTH);
@@ -96,12 +96,7 @@ public class CadastrarImagem extends JDialog implements ActionListener {
 					JOptionPane.showMessageDialog(this, "Alterada com sucesso.");
 					this.dispose();
 				}
-			} else {
-				dispose();
 			}
-		} else {
-			this.dispose();
 		}
 	}
-
 }

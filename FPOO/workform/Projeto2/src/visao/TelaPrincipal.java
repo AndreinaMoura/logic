@@ -11,6 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import controle.OrcamentoProcess;
+
 public class TelaPrincipal extends JFrame implements ActionListener {
 
 		private static final long serialVersionUID = 1L;
@@ -25,7 +27,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		TelaPrincipal() {
 			// COnfigurações do Form principal
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
-			setTitle("Loja de Ferragens do Hortelino - Sistema de Compras");
+			setTitle("Mercado dois irmãos");
 			setIconImage(new ImageIcon(imgIco).getImage());
 			setBounds(200, 100, 700, 500);
 			panel = new JPanel();
@@ -69,9 +71,9 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 				cf.setModal(true);
 				cf.setVisible(true);
 			} else if (e.getSource() == itemLogin) {
-				LoginForm cf = new LoginForm();
-				cf.setModal(true);
-				cf.setVisible(true);
+				LoginForm lf = new LoginForm();
+				lf.setModal(true);
+				lf.setVisible(true);
 			}
 			else {
 				dispose();
@@ -81,6 +83,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		//Método Main que  abre o Form principal e carrega os arquivos
 		public static void main(String[] args) {
 			TelaPrincipal mf = new TelaPrincipal();
+			OrcamentoProcess.abrir();
 			mf.setVisible(true);
 		}
 

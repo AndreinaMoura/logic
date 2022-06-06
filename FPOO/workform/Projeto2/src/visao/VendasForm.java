@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import controle.ProcessaVenda;
+import dao.ProdutoDAO;
 import controle.ProcessaProduto;
 import modelo.Venda;
 import modelo.Produto;
@@ -32,7 +33,6 @@ public class VendasForm extends JDialog implements ActionListener {
 	private DefaultTableModel tableModel;
 	private JScrollPane scroll;
 	private JButton btAdd, btDel, btCancelar, btSalvar;
-	private JLabel lbCabecalho = new JLabel(new Venda().cabecalho());
 	private JLabel lbTotalItens = new JLabel("Total de Ítens:");
 	private JLabel lbTotalDinheiro = new JLabel("Total em R$:");
 	private int numero;
@@ -54,7 +54,6 @@ public class VendasForm extends JDialog implements ActionListener {
 	private Produto produto;
 
 	VendasForm() {
-		// Propriedades do Formulário
 		setTitle("Cadastro de Vendas");
 		setBounds(201, 160, 697, 410);
 		setIconImage(new ImageIcon(imgIco).getImage());
@@ -63,8 +62,6 @@ public class VendasForm extends JDialog implements ActionListener {
 		setLayout(null);
 		numero = ProcessaVenda.getAutoNumero();
 
-		// Label e TextFiels para Cadastro
-		lbCabecalho.setBounds(10, 50, 580, 20);
 		tfNum.setBounds(10, 70, 50, 25);
 		tfData.setBounds(60, 70, 80, 25);
 		tfHora.setBounds(140, 70, 80, 25);
@@ -78,16 +75,15 @@ public class VendasForm extends JDialog implements ActionListener {
 		tfNum.setEnabled(false);
 		tfData.setEnabled(false);
 		tfHora.setEnabled(false);
-		panel.add(lbCabecalho);
 		panel.add(tfNum);
 		panel.add(tfData);
 		panel.add(tfHora);
 		panel.add(cbProduto);
 		panel.add(tfQuantidade);
 		
-		//Imagem do produto
 		produto = ProcessaProduto.getProduto(Integer.parseInt(cbProduto.getSelectedItem().toString().split("")[0]));
-		img = new ImageIcon(ProcessaProduto.getPd().getImgPath(produto));
+		ProcessaProduto.getPd();
+		img = new ImageIcon(ProdutoDAO.getImgPath(produto));
 		image = img.getImage();
 		newImg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
 		img = new ImageIcon(newImg);
@@ -96,13 +92,11 @@ public class VendasForm extends JDialog implements ActionListener {
 		lbImagem.setBounds(568, 0, 100, 100);
 		panel.add(lbImagem);
 
-		// Botão Adicionar (CREATE)
 		btAdd = new JButton("Add");
 		btAdd.setBounds(500, 70, 68, 25);
 		panel.add(btAdd);
 		btAdd.addActionListener(this);
 
-		// Tabela de Professores (READ, UPDATE)
 		tableModel = new DefaultTableModel();
 		tableModel.addColumn("Número");
 		tableModel.addColumn("Data");
@@ -121,7 +115,6 @@ public class VendasForm extends JDialog implements ActionListener {
 		scroll.setBounds(10, 100, 659, 230);
 		panel.add(scroll);
 
-		// Totais
 		tfTotalItens.setText(String.format("%d",ProcessaVenda.getTotalItens()));
 		tfTotalDinheiro.setText(String.format("%.2f", ProcessaVenda.getTotalDinheiro()));
 		lbTotalItens.setBounds(10, 330, 80, 30);
@@ -133,19 +126,16 @@ public class VendasForm extends JDialog implements ActionListener {
 		panel.add(lbTotalDinheiro);
 		panel.add(tfTotalDinheiro);
 
-		// Botão Deletar (DELETE)
 		btDel = new JButton("Del");
 		btDel.setBounds(318, 330, 120, 30);
 		panel.add(btDel);
 		btDel.addActionListener(this);
 
-		// Botão Cancelar (Cancela as alterações)
 		btCancelar = new JButton("Cancelar");
 		btCancelar.setBounds(428, 330, 120, 30);
 		panel.add(btCancelar);
 		btCancelar.addActionListener(this);
 
-		// Botão Salvar (Renova a lista)
 		btSalvar = new JButton("Salvar");
 		btSalvar.setBounds(548, 330, 120, 30);
 		panel.add(btSalvar);
@@ -154,7 +144,8 @@ public class VendasForm extends JDialog implements ActionListener {
 	
 	private void alternaImagem() {
 		produto = ProcessaProduto.getProduto(Integer.parseInt(cbProduto.getSelectedItem().toString().split("")[0]));
-		img = new ImageIcon(ProcessaProduto.getPd().getImgPath(produto));
+		ProcessaProduto.getPd();
+		img = new ImageIcon(ProdutoDAO.getImgPath(produto));
 		image = img.getImage();
 		newImg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
 		img = new ImageIcon(newImg);
@@ -165,18 +156,15 @@ public class VendasForm extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btAdd) {
 			if (!tfQuantidade.getText().isEmpty()) {
-				// Utiliza o Model Produto para filtrar os dados e preenche o tableModel
 				compra = new Venda();
 				compra.setNum(numero);
 				compra.setData(tfData.getText());
 				compra.setHora(tfHora.getText());
 				compra.setQuantidade(Integer.parseInt(tfQuantidade.getText()));
-				// Pega os dados do produto na ComboBox e Da baixa no estoque
 				produto = ProcessaProduto.getProdutos().get(cbProduto.getSelectedIndex());
 				if (ProcessaProduto.getProdutos().get(cbProduto.getSelectedIndex()).darBaixa(compra.getQuantidade())) {
 					compra.setProduto(produto);
 					tableModel.addRow(compra.getStringVetor());
-					// Limpa/atualiza os campos
 					numero++;
 					tfNum.setText(String.format("%d", numero));
 					tfData = new JTextField(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
@@ -189,9 +177,7 @@ public class VendasForm extends JDialog implements ActionListener {
 					JOptionPane.showMessageDialog(null, "Quantidade insuficiente no estoque");
 				}
 			}
-
 		} else if (e.getSource() == btDel) {
-			// Ao ser pressionado o botão Del
 			if (table.getSelectedRow() >= 0) {
 				tableModel.removeRow(table.getSelectedRow());
 			} else {
@@ -201,7 +187,6 @@ public class VendasForm extends JDialog implements ActionListener {
 			dispose();
 		} else if(e.getSource() == btSalvar) {
 			ArrayList<Venda> compras = new ArrayList<>();
-			// Passando os dados da tabela para uma Lista (ArrayList)
 			for (int i = 0; i < tableModel.getRowCount(); i++) {
 				compra = new Venda();
 				compra.setNum(Integer.parseInt((String) tableModel.getValueAt(i, 0)));

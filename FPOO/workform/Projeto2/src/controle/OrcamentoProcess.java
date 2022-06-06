@@ -2,8 +2,8 @@ package controle;
 
 import java.util.ArrayList;
 
+import dao.ProdutoDAO;
 import modelo.Produto;
-import modelo.dao.ProdutoDAO;
 
 public class OrcamentoProcess {
 

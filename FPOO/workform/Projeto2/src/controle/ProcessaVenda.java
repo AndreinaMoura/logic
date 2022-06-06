@@ -2,8 +2,8 @@ package controle;
 
 import java.util.ArrayList;
 
+import dao.VendaDAO;
 import modelo.Venda;
-import modelo.dao.VendaDAO;
 
 public class ProcessaVenda {
 

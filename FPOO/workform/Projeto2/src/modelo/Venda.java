@@ -70,9 +70,4 @@ public class Venda {
 		return new String[] { "" + num, data, hora, "" + produto.getCodProduto(), "" + produto.getPrecoUnitario(), "" + quantidade,
 				String.format("%.2f", getSubtotal()) };
 	}
-
-	public String cabecalho() {
-		return "Numero   Data               Hora                   (Cod Produto                          Preço)      Quantidade";
-	}
-
 }

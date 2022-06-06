@@ -78,12 +78,9 @@ public class MainForm extends JFrame implements ActionListener {
 			dispose();
 		}
 	}
-
-	//Método Main que  abre o Form principal e carrega os arquivos
 	public static void main(String[] args) {
 		//Abre o formulário principal
 		MainForm mf = new MainForm();
 		mf.setVisible(true);
 	}
-
 }
