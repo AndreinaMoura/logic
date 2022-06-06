@@ -145,7 +145,7 @@ public class OrcamentoForm extends JDialog implements ActionListener {
 				System.out.println(e);
 				p = 0;
 			}
-			OrcamentoProcess.comprarProdutos();
+			
 			OrcamentoProcess.orcamentos.add(new Orcamento(codigo, produto.getText(), fornecedor.getText(), p, OrcamentoProcess.comprarProdutos()));
 			codigo++;
 			OrcamentoProcess.salvar();
@@ -184,7 +184,7 @@ public class OrcamentoForm extends JDialog implements ActionListener {
 				System.out.println(e);
 				p = 0;
 			}
-
+			OrcamentoProcess.comprarProdutos();
 			OrcamentoProcess.orcamentos.set(indice,
 					new Orcamento(Integer.parseInt(id.getText()),fornecedor.getText(), produto.getText(), p, OrcamentoProcess.comprarProdutos()));
 			preencherAreaDeTexto();
@@ -221,7 +221,6 @@ public class OrcamentoForm extends JDialog implements ActionListener {
 				fornecedor.setText(OrcamentoProcess.orcamentos.get(indice).getFornecedor());
 				produto.setText(OrcamentoProcess.orcamentos.get(indice).getProduto());
 				preco.setText(OrcamentoProcess.orcamentos.get(indice).getPreco("s"));
-//				maisBarato.setText(OrcamentoProcess.orcamentos.get(indice).comprar());
 				adicionar.setEnabled(false);
 				alterar.setEnabled(true);
 				excluir.setEnabled(true);
@@ -231,7 +230,9 @@ public class OrcamentoForm extends JDialog implements ActionListener {
 			}
 		}
 	}
-
+public void corzinha(){
+	
+}
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == adicionar) {
 			add();

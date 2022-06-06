@@ -116,10 +116,10 @@ public class Orcamento {
 	}
 
 	public String toString() {
-		return id + "\t" + fornecedor + "\t" + produto + "\t" + preco + "\t" + maisBarato + "\n";
+		return id + "\t" + fornecedor + "\t" + produto + "\t" + preco + "\t" + comprar() + "\n";
 	}
 
 	public String toCSV() {
-		return id + ";" + fornecedor + ";" + produto + ";" + preco +";" + comprar() + "\r\n";
+		return id + ";" + fornecedor + ";" + produto + ";" + preco +";" + maisBarato + "\r\n";
 	}
 }
