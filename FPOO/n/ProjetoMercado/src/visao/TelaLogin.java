@@ -15,10 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import controle.ProdutoProcess;
 import controle.UsuarioProcessa;
 import uteis.Criptografia;
 
-public class LoginForm extends JFrame implements ActionListener{
+public class TelaLogin extends JFrame implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
 	// Itens na tela de login 
@@ -31,7 +32,7 @@ public class LoginForm extends JFrame implements ActionListener{
 	private String [] fundo = {".\\assets\\fundo.png"};
 	private ImageIcon icon;
 	
-	LoginForm() {
+	TelaLogin() {
 		setTitle("Tela de Login");
 		setBounds(100, 100, 600, 420);
 		//logo

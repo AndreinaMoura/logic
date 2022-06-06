@@ -3,11 +3,14 @@ package visao;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Currency;
 import java.util.Locale;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -235,7 +238,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 		verResultados.setText(texto);
 	}
 
-	private void buscar() {
+	private void buscar() throws IOException {
 		String entrada = JOptionPane.showInputDialog(this, "Digite o código do produto:");
 
 		boolean isNumeric = true;
@@ -262,7 +265,7 @@ public class ProdutoForm extends JFrame implements ActionListener {
 				tfdtFabricacao.setText(OrcamentoProcess.produtos.get(indice).getDtFabricacao("s"));
 				tfdtValidade.setText(OrcamentoProcess.produtos.get(indice).getDtValidade("s"));
 				tfprecoVenda.setText(OrcamentoProcess.produtos.get(indice).valorTotal("s"));
-				lbImagem.setText(ProdutoDAO.getImgPath(prod));
+				lbImagem.setIcon(new ImageIcon(ImageIO.read(new File(ProdutoDAO.getImgPath(prod)))));
 				create.setEnabled(false);
 				update.setEnabled(true);
 				delete.setEnabled(true);
@@ -328,7 +331,11 @@ public class ProdutoForm extends JFrame implements ActionListener {
 			cadastrar();
 		}
 		if (e.getSource() == read) {
-			buscar();
+			try {
+				buscar();
+			} catch (IOException e1) {
+				System.out.println(e.toString());
+			}
 		}
 		if (e.getSource() == update) {
 			alterar();
