@@ -32,7 +32,6 @@ public class OrcamentoForm extends JDialog implements ActionListener {
 	public static JTextField produto;
 	public static double p;
 	public JTextField preco;
-	private JTextField maisBarato;
 	private JLabel Lid, Lfornecedor, Lproduto, Lpreco;
 	private JTable texto;
 	private int codigo = OrcamentoProcess.orcamentos.size() + 1;
@@ -83,17 +82,19 @@ public class OrcamentoForm extends JDialog implements ActionListener {
 		adicionar.addActionListener(this);
 
 		excluir = new JButton("Excluir");
-		excluir.setBounds(400, 60, 100, 30);
+		excluir.setBounds(400, 140, 100, 30);
 		panel.add(excluir);
 		excluir.addActionListener(this);
+		excluir.setEnabled(false);
 
 		alterar = new JButton("Alterar");
 		alterar.setBounds(400, 100, 100, 30);
 		panel.add(alterar);
 		alterar.addActionListener(this);
+		alterar.setEnabled(false);
 
 		buscar = new JButton("Buscar");
-		buscar.setBounds(400, 140, 100, 30);
+		buscar.setBounds(400, 60, 100, 30);
 		panel.add(buscar);
 		buscar.addActionListener(this);
 		
@@ -134,7 +135,7 @@ public class OrcamentoForm extends JDialog implements ActionListener {
 	}
 
 	public void add() {
-		if (id.getText().length() != 0 && maisBarato.getText().length() != 0 && produto.getText().length() != 0
+		if (id.getText().length() != 0 && produto.getText().length() != 0
 				&& fornecedor.getText().length() != 0 && preco.getText().length() != 0) {
 
 			df.setCurrency(Currency.getInstance(BRASIL));
@@ -145,7 +146,7 @@ public class OrcamentoForm extends JDialog implements ActionListener {
 				p = 0;
 			}
 			OrcamentoProcess.comprarProdutos();
-			OrcamentoProcess.orcamentos.add(new Orcamento(codigo, produto.getText(), fornecedor.getText(), p));
+			OrcamentoProcess.orcamentos.add(new Orcamento(codigo, produto.getText(), fornecedor.getText(), p, OrcamentoProcess.comprarProdutos()));
 			codigo++;
 			OrcamentoProcess.salvar();
 			preencherAreaDeTexto();
@@ -173,7 +174,7 @@ public class OrcamentoForm extends JDialog implements ActionListener {
 		int Id = Integer.parseInt(id.getText());
 		Orcamento prod = new Orcamento(Id);
 		int indice = OrcamentoProcess.orcamentos.indexOf(prod);
-		if (id.getText().length() != 0 && maisBarato.getText().length() != 0 && produto.getText().length() != 0
+		if (id.getText().length() != 0 && produto.getText().length() != 0
 				&& fornecedor.getText().length() != 0 && preco.getText().length() != 0) {
 
 			df.setCurrency(Currency.getInstance(BRASIL));
@@ -185,7 +186,7 @@ public class OrcamentoForm extends JDialog implements ActionListener {
 			}
 
 			OrcamentoProcess.orcamentos.set(indice,
-					new Orcamento(Integer.parseInt(id.getText()),fornecedor.getText(), produto.getText(), p));
+					new Orcamento(Integer.parseInt(id.getText()),fornecedor.getText(), produto.getText(), p, OrcamentoProcess.comprarProdutos()));
 			preencherAreaDeTexto();
 			limparCampos();
 		} else {
@@ -220,7 +221,7 @@ public class OrcamentoForm extends JDialog implements ActionListener {
 				fornecedor.setText(OrcamentoProcess.orcamentos.get(indice).getFornecedor());
 				produto.setText(OrcamentoProcess.orcamentos.get(indice).getProduto());
 				preco.setText(OrcamentoProcess.orcamentos.get(indice).getPreco("s"));
-				maisBarato.setText(OrcamentoProcess.orcamentos.get(indice).comprar());
+//				maisBarato.setText(OrcamentoProcess.orcamentos.get(indice).comprar());
 				adicionar.setEnabled(false);
 				alterar.setEnabled(true);
 				excluir.setEnabled(true);

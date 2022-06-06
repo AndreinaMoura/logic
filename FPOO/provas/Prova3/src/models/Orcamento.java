@@ -4,8 +4,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Currency;
 import java.util.Locale;
-
-import controllers.OrcamentoProcess;
+import java.util.Objects;
 
 public class Orcamento {
 
@@ -22,11 +21,12 @@ public class Orcamento {
 		this.id = codigo;
 	}
 
-	public Orcamento(int id, String fornecedor, String produto, double preco) {
+	public Orcamento(int id, String fornecedor, String produto, double preco, boolean maisBarato) {
 		this.id = id;
 		this.fornecedor = fornecedor;
 		this.produto = produto;
 		this.preco = preco;
+		this.maisBarato = maisBarato;
 	}
 
 	public Orcamento(String linha) {
@@ -89,7 +89,7 @@ public class Orcamento {
 		if(maisBarato) {
 			return "Mais barato";
 		}
-		return null;
+		return "Caro";
 	}
 
 	public String getId(String string) {
@@ -100,15 +100,10 @@ public class Orcamento {
 		return String.format("%.2f", preco);
 	}
 
-	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
+		return Objects.hash(id);
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -117,9 +112,7 @@ public class Orcamento {
 		if (getClass() != obj.getClass())
 			return false;
 		Orcamento other = (Orcamento) obj;
-		if (id != other.id)
-			return false;
-		return true;
+		return id == other.id;
 	}
 
 	public String toString() {
