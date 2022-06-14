@@ -201,5 +201,6 @@ nav {
     display: flex;
 }
 .as{
-    float:left;
+    display:contents;
+    float:right;
 }
